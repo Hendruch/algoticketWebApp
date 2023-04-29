@@ -4,7 +4,6 @@ import viteLogo from '/vite.svg'
 import '../App.css'
 import { useGetUsers } from "../hooks/Users/useGetUsers";
 
-
 function Example() {
   const [count, setCount] = useState(0)
   const { data, refetch } = useGetUsers();
