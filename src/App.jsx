@@ -3,7 +3,6 @@ import PageRoutes from './router/PageRoutes'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import './App.css'
 
-
 function App() {
 
   const queryClient = new QueryClient({
