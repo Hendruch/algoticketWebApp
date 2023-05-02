@@ -10,33 +10,35 @@ function Concert_cart() {
       
       <div className="hidden md:flex md:w-5/12 ">
         <img
-          src="https://picsum.photos/200/300"
+          src="https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/J7KKJYMYSFBFHPJQ2BDOINX4O4.jpg"
           alt=""
           className="w-full h-50 object-cover rounded-2xl my-8 ml-6"
         />
       </div>
-      <div className="w-12/12 md:w-7/12 grid grid-cols-1 p-10 content-between">
-        <h5 className="text-black font-medium sm:text-sm">
-          Sep 2 Luis Miguel
-        </h5>
-        <h1
-          className="text-black font-semibold mt-8 sm:text-sm"
-          id="Concert_card_tittle"
-        >
-          Oaxaca de Juárez, Oaxaca | Auditorio Guelaguetza
-        </h1>
-        <p className="text-black mt-5">
-          Info Relevante Info Relevante Info Relevante Info Relevante Info Relevante Info Relevante 
+      <div className="w-12/12 md:w-7/12  p-10 content-between">
+        <div className="text-black font-bold sm:text-lg float-left mr-3">
+          <p className="text-2xl">Sep</p>
+          <p className="text-4xl">02</p>
+        </div>
+        <p className="text-4xl font-bold">
+          Luis Miguel
         </p>
-        <div className="flex">
-          <button className="mt-8 mr-auto">
-            <a href="#" className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-sky-800 hover:text-black">Más Info</a>
+        <p className="mt-2 font-bold mb-2">
+          Oaxaca de Juarez, Oaxaca | Auditorio Guelaguetza
+        </p>
+        <p>
+          Vive una experiencia única con Luis Miguel en Oaxaca de Juarez, Oaxaca a las 20:00 hrs. 
+        </p>
+        <p> No te pierdas este concierto de la gira México por siempre.</p>
+        <div className="flex mt-10">
+          <button className="mr-auto">
+            <a href="#" className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-gray-700 ">Más Info</a>
           </button>
-          <button className="mt-8 mr-auto">
-            <a href="#" className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-sky-800 hover:text-black">Reservar</a>
+          <button className="mr-auto">
+            <a href="#" className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-gray-700 ">Reservar</a>
           </button>
-          <button className="mt-8 mr-auto">
-            <a href="#" className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-sky-800 hover:text-black">♡</a>
+          <button className="mr-auto">
+            <a href="#" className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-gray-700 ">♡</a>
           </button>
         </div>
       </div>
