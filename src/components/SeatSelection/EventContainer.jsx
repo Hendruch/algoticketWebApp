@@ -1,12 +1,12 @@
 import { EventInfo } from "./EventInfo";
-import { SeatSelector } from "./SeatSelector";
+import { ZoneSelector } from "./ZoneSelector";
 import { SectionsInfo } from "./SectionsInfo"
 
 function EventContainer() {
   return (
     <div style={{height:'549px'}} className="flex flex-grow">
       <div className=" w-5/12 p-6">
-        <SeatSelector/>
+        <ZoneSelector/>
       </div>
       <div className="w-4/12">
         <EventInfo/>

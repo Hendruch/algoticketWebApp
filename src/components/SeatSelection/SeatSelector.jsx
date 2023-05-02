@@ -1,73 +1,39 @@
-import { A1 } from "./Sections/A/A1";
-import { A2 } from "./Sections/A/A2";
-import { A3 } from "./Sections/A/A3";
-import { A4 } from "./Sections/A/A4";
+import React, { useState, useEffect } from "react";
 
-import { B1 } from "./Sections/B/B1";
-import { B2 } from "./Sections/B/B2";
-import { B3 } from "./Sections/B/B3";
-import { B4 } from "./Sections/B/B4";
-import { B5 } from "./Sections/B/B5"
+function SeatSelector({ZoneSelected,handleBack}){
 
-import { C1 } from "./Sections/C/C1";
-import { C2 } from "./Sections/C/C2";
-import { C3 } from "./Sections/C/C3";
-import { C4 } from "./Sections/C/C4";
-import { C5 } from "./Sections/C/C5";
+    const [color, setColor] = useState("");
 
-import { D1 } from "./Sections/D/D1";
-import { D2 } from "./Sections/D/D2";
-import { D3 } from "./Sections/D/D3";
-import { D4 } from "./Sections/D/D4";
-import { D5 } from "./Sections/D/D5";
-import { D6 } from "./Sections/D/D6";
-import { D7 } from "./Sections/D/D7";
-
-
-function SeatSelector(){
-
-    const handleSeatsBySection = (event) => {
-        alert("Selecciono la zona : " + event.target.id)
-      };
+    useEffect(() => {
+        if (/A/.test(ZoneSelected)) {
+            setColor("#EAB308");
+        } else if (/B/.test(ZoneSelected)) {
+            setColor("#3B82F6");
+        } else if (/C/.test(ZoneSelected)) {
+            setColor('#EF4444');
+        } else {
+            setColor('#8B5CF6');
+        }
+    })
 
     return(
-        <div className="bg-black w-full h-full pt-5 px-5">
-          <div class="grid grid-cols-7 text-center ">
-            <div style={{color:'white'}}className="col-span-7 ..." ><p>Escenario</p></div>
-                {/* Zona A */} 
-                <div class="pt-2 col-span-7 ...">
-                <button onClick={handleSeatsBySection} ><A1/></button>
-                    <button onClick={handleSeatsBySection} ><A2/></button>
-                    <button onClick={handleSeatsBySection} ><A3/></button>
-                    <button onClick={handleSeatsBySection} ><A4/></button>
-                </div>
-                {/* Zona B */} 
-                <div class="col-span-7 ...">
-                    <button onClick={handleSeatsBySection} ><B1/></button>
-                    <button onClick={handleSeatsBySection} ><B2/></button>
-                    <button onClick={handleSeatsBySection} ><B3/></button>
-                    <button onClick={handleSeatsBySection} ><B4/></button>
-                    <button onClick={handleSeatsBySection} ><B5/></button>
-                </div>
-                {/* Zona C */} 
-                <div class="col-span-7 ...">
-                    <button onClick={handleSeatsBySection} ><C1/></button>
-                    <button onClick={handleSeatsBySection} ><C2/></button>
-                    <button onClick={handleSeatsBySection} ><C3/></button>
-                    <button onClick={handleSeatsBySection} ><C4/></button>
-                    <button onClick={handleSeatsBySection} ><C5/></button>
-                </div>
-                {/* Zona D */}
-                <div class="..."><button onClick={handleSeatsBySection} ><D1/></button></div>
-                <div class="..."><button onClick={handleSeatsBySection} ><D2/></button></div>
-                <div class="..."><button onClick={handleSeatsBySection} ><D3/></button></div>
-                <div class="..."><button onClick={handleSeatsBySection} ><D4/></button></div>
-                <div class="..."><button onClick={handleSeatsBySection} ><D5/></button></div>
-                <div class="..."><button onClick={handleSeatsBySection} ><D6/></button></div>
-                <div class="..."><button onClick={handleSeatsBySection} ><D7/></button></div>
+        <div style={{color:'white'}}>
+            <div className="flex">
+                <button onClick={handleBack}  >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+                    </svg>
+                    Go back
+                </button>
+                <h2 className="pl-20" >Bienvenido a la zona {ZoneSelected}</h2>
             </div>
-        </div> 
+            <div className="flex items-center my-5">
+                <div style={{backgroundColor:'grey'}} className="my-3 h-5 w-5 rounded ..."></div><p className="mx-5" >Disponible</p>
+                <div style={{backgroundColor:color}} className="my-3 h-5 w-5 rounded ..."></div><p className="mx-5" >Ocupado</p>
+            </div>
+        </div>
     )
 }
-
 export { SeatSelector }
+
+
