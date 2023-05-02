@@ -1,3 +1,8 @@
+import { A1 } from "./Sections/A/A1";
+import { A2 } from "./Sections/A/A2";
+import { A3 } from "./Sections/A/A3";
+import { A4 } from "./Sections/A/A4";
+
 import { B1 } from "./Sections/B/B1";
 import { B2 } from "./Sections/B/B2";
 import { B3 } from "./Sections/B/B3";
@@ -26,14 +31,14 @@ function SeatSelector(){
       };
 
     return(
-        <div className="bg-white w-full h-full ">
-          <div class="grid grid-cols-7 gap-4 text-center">
+        <div className="bg-black w-full h-full ">
+          <div class="grid grid-cols-7 text-center">
              {/* Zona A */} 
-             <div class="col-span-2 ..."><button onClick={handleSeatsBySection} >A1</button></div>
-            <div class="..."><button onClick={handleSeatsBySection} >A2</button></div>
+            <div class="col-span-2 ..."><button onClick={handleSeatsBySection} ><A1/></button></div>
+            <div class="..."><button onClick={handleSeatsBySection} ><A2/></button></div>
             <div class="..."></div>
-            <div class="..."><button onClick={handleSeatsBySection} >A3</button></div>
-            <div class="col-span-2 ..."><button onClick={handleSeatsBySection} >A4</button></div>
+            <div class="..."><button onClick={handleSeatsBySection} ><A3/></button></div>
+            <div class="col-span-2 ..."><button onClick={handleSeatsBySection} ><A4/></button></div>
             {/* Zona B */} 
             <div class="col-span-2 ..."><button onClick={handleSeatsBySection} ><B1/></button></div>
             <div class="..."><button onClick={handleSeatsBySection} ><B2/></button></div>
