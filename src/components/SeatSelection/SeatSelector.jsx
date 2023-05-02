@@ -31,35 +31,41 @@ function SeatSelector(){
       };
 
     return(
-        <div className="bg-black w-full h-full ">
-          <div class="grid grid-cols-7 text-center">
-             {/* Zona A */} 
-            <div class="col-span-2 ..."><button onClick={handleSeatsBySection} ><A1/></button></div>
-            <div class="..."><button onClick={handleSeatsBySection} ><A2/></button></div>
-            <div class="..."></div>
-            <div class="..."><button onClick={handleSeatsBySection} ><A3/></button></div>
-            <div class="col-span-2 ..."><button onClick={handleSeatsBySection} ><A4/></button></div>
-            {/* Zona B */} 
-            <div class="col-span-2 ..."><button onClick={handleSeatsBySection} ><B1/></button></div>
-            <div class="..."><button onClick={handleSeatsBySection} ><B2/></button></div>
-            <div class="..."><button onClick={handleSeatsBySection} ><B3/></button></div>
-            <div class="..."><button onClick={handleSeatsBySection} ><B4/></button></div>
-            <div class="col-span-2 ..."><button onClick={handleSeatsBySection} ><B5/></button></div>
-            {/* Zona C */} 
-            <div class="col-span-2 ..."><button onClick={handleSeatsBySection} ><C1/></button></div>
-            <div class="..."><button onClick={handleSeatsBySection} ><C2/></button></div>
-            <div class="..."><button onClick={handleSeatsBySection} ><C3/></button></div>
-            <div class="..."><button onClick={handleSeatsBySection} ><C4/></button></div>
-            <div class="col-span-2 ..."><button onClick={handleSeatsBySection} ><C5/></button></div>
-            {/* Zona D */}
-            <div class="..."><button onClick={handleSeatsBySection} ><D1/></button></div>
-            <div class="..."><button onClick={handleSeatsBySection} ><D2/></button></div>
-            <div class="..."><button onClick={handleSeatsBySection} ><D3/></button></div>
-            <div class="..."><button onClick={handleSeatsBySection} ><D4/></button></div>
-            <div class="..."><button onClick={handleSeatsBySection} ><D5/></button></div>
-            <div class="..."><button onClick={handleSeatsBySection} ><D6/></button></div>
-            <div class="..."><button onClick={handleSeatsBySection} ><D7/></button></div>
-          </div>
+        <div className="bg-black w-full h-full pt-5 px-5">
+          <div class="grid grid-cols-7 text-center ">
+            <div style={{color:'white'}}className="col-span-7 ..." ><p>Escenario</p></div>
+                {/* Zona A */} 
+                <div class="pt-2 col-span-7 ...">
+                <button onClick={handleSeatsBySection} ><A1/></button>
+                    <button onClick={handleSeatsBySection} ><A2/></button>
+                    <button onClick={handleSeatsBySection} ><A3/></button>
+                    <button onClick={handleSeatsBySection} ><A4/></button>
+                </div>
+                {/* Zona B */} 
+                <div class="col-span-7 ...">
+                    <button onClick={handleSeatsBySection} ><B1/></button>
+                    <button onClick={handleSeatsBySection} ><B2/></button>
+                    <button onClick={handleSeatsBySection} ><B3/></button>
+                    <button onClick={handleSeatsBySection} ><B4/></button>
+                    <button onClick={handleSeatsBySection} ><B5/></button>
+                </div>
+                {/* Zona C */} 
+                <div class="col-span-7 ...">
+                    <button onClick={handleSeatsBySection} ><C1/></button>
+                    <button onClick={handleSeatsBySection} ><C2/></button>
+                    <button onClick={handleSeatsBySection} ><C3/></button>
+                    <button onClick={handleSeatsBySection} ><C4/></button>
+                    <button onClick={handleSeatsBySection} ><C5/></button>
+                </div>
+                {/* Zona D */}
+                <div class="..."><button onClick={handleSeatsBySection} ><D1/></button></div>
+                <div class="..."><button onClick={handleSeatsBySection} ><D2/></button></div>
+                <div class="..."><button onClick={handleSeatsBySection} ><D3/></button></div>
+                <div class="..."><button onClick={handleSeatsBySection} ><D4/></button></div>
+                <div class="..."><button onClick={handleSeatsBySection} ><D5/></button></div>
+                <div class="..."><button onClick={handleSeatsBySection} ><D6/></button></div>
+                <div class="..."><button onClick={handleSeatsBySection} ><D7/></button></div>
+            </div>
         </div> 
     )
 }
