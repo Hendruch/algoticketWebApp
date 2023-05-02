@@ -12,18 +12,18 @@ function Concert_cart() {
         <img
           src="https://picsum.photos/200/300"
           alt=""
-          className="w-full h-40 object-cover rounded-2xl"
+          className="w-full h-50 object-cover rounded-2xl my-8 ml-6"
         />
       </div>
       <div className="w-12/12 md:w-7/12 grid grid-cols-1 p-10 content-between">
         <h5 className="text-black font-medium sm:text-sm">
-          Estudio comparativo
+          Sep 2 Luis Miguel
         </h5>
         <h1
           className="text-black font-semibold mt-8 sm:text-sm"
           id="Concert_card_tittle"
         >
-          Bloqueo caudal en pediatría. Técnica Melman y Armitage.
+          Oaxaca de Juárez, Oaxaca | Auditorio Guelaguetza
         </h1>
         <p className="text-black mt-5">
           Info Relevante Info Relevante Info Relevante Info Relevante Info Relevante Info Relevante 
