@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
-import SlidebarE from "./components/SlidebarE";
-import Header from "./components/Headerdash";
+import SlidebarE from "../components/CRUDEvents/SlidebarE";
+import Header from "../components/CRUDEvents/Headerdash";
 import { RiAddFill  , RiEdit2Fill,RiDeleteBack2Fill} from "react-icons/ri";
 import axios from "axios";
 import { FaTrash } from 'react-icons/fa';
