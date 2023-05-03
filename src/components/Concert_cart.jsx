@@ -1,6 +1,23 @@
 import React from "react";
+import { useNavigate } from 'react-router';
 
 function Concert_cart() {
+  var numero = 0;
+
+  const changeElementChildText = () => {
+    if(numero === 0){
+      const element = document.getElementById("Corazon");
+      element.innerHTML = "♥";
+      numero = 1;
+    }
+    else if(numero === 1){
+      const element = document.getElementById("Corazon");
+      element.innerHTML = "♡";
+      numero = 0;
+    }
+    
+  };
+
   return (
     <div
       className="w-full bg-white rounded-2xl flex-row md:flex justify-between overflow-hidden my-10 drop-shadow-xl"
@@ -32,13 +49,13 @@ function Concert_cart() {
         <p> No te pierdas este concierto de la gira México por siempre.</p>
         <div className="flex mt-10">
           <button className="mr-auto">
-            <a href="#" className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-gray-700 ">Más Info</a>
+            <a href="/asientos" className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-gray-700 ">Más Info</a>
           </button>
           <button className="mr-auto">
-            <a href="#" className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-gray-700 ">Reservar</a>
+            <a href="/asientos" className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-gray-700 ">Reservar</a>
           </button>
           <button className="mr-auto">
-            <a href="#" className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-gray-700 ">♡</a>
+            <a id="Corazon" onClick={changeElementChildText} className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-gray-700 ">♡</a>
           </button>
         </div>
       </div>

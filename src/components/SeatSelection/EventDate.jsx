@@ -6,9 +6,9 @@ function EventDate() {
         <p className="text-5xl font-bold">02</p>
       </div>
       <div className="py-7">
-        <h1 className="text-5xl font-bold">Nombre del Artista</h1>
+        <h1 className="text-5xl font-bold">Luis Miguel</h1>
         <p className="text-lg font-bold">
-          Oaxaca de Juarez, Oax | Auditorio Guelaguetza | 99:99hrs
+          Oaxaca de Juarez, Oax | Auditorio Guelaguetza | 20:00hrs
         </p>
       </div>
     </div>
