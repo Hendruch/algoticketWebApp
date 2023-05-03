@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-function SeatSelector({ZoneSelected,handleBack}){
+function SeatSelector({ ZoneSelected, handleBack }) {
 
     const [color, setColor] = useState("");
-    
+
 
     useEffect(() => {
         if (/A/.test(ZoneSelected)) {
@@ -21,8 +21,8 @@ function SeatSelector({ZoneSelected,handleBack}){
         alert('Asiento seleccionado')
     }
 
-    return(
-        <div style={{color:'white'}}>
+    return (
+        <div style={{ color: 'white' }} className="bg-black w-full h-full pt-5 px-5">
             <div className="flex">
                 <button onClick={handleBack}  >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -33,32 +33,32 @@ function SeatSelector({ZoneSelected,handleBack}){
                 <h2 className="pl-20" >Bienvenido a la zona {ZoneSelected}</h2>
             </div>
             <div className="flex items-center my-5">
-                <div style={{backgroundColor:'grey'}} className="my-3 h-5 w-5 rounded ..."></div><p className="mx-5" >Disponible</p>
-                <div style={{backgroundColor:color}} className="my-3 h-5 w-5 rounded ..."></div><p className="mx-5" >Ocupado</p>
+                <div style={{ backgroundColor: 'grey' }} className="my-3 h-5 w-5 rounded ..."></div><p className="mx-5" >Disponible</p>
+                <div style={{ backgroundColor: color }} className="my-3 h-5 w-5 rounded ..."></div><p className="mx-5" >Ocupado</p>
             </div>
             <div className="grid grid-cols-10">
 
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded mb-4" style={{backgroundColor:color}} >1</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >2</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >3</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >4</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >5</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >6</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >7</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >8</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >9</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >10</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded mb-4" style={{ backgroundColor: color }} >1</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >2</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >3</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >4</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >5</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >6</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >7</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >8</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >9</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >10</button>
 
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >11</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >12</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >13</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >14</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >15</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >16</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >17</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >18</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >19</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{backgroundColor:color}} >20</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >11</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >12</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >13</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >14</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >15</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >16</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >17</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >18</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >19</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >20</button>
             </div>
         </div>
     )
