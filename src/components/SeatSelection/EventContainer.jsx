@@ -18,16 +18,14 @@ function EventContainer() {
     setZoneSelector(true);
   }
   return (
-    <div className="flex flex-grow">
-      <div className=" w-5/12 p-6">
-        {showZoneSelector ?
-          (<ZoneSelector />) : (<SeatSelector ZoneSelected={ZoneSelected} handleBack={handleBack} />)
-        }
+    <div className="flex flex-wrap">
+      <div className="w-full md:w-5/12 p-6">
+        {showZoneSelector ? <ZoneSelector /> : <SeatSelector ZoneSelected={ZoneSelected} handleBack={handleBack} />}
       </div>
-      <div className="w-4/12">
+      <div className="w-full md:w-4/12 ">
         <EventInfo />
       </div>
-      <div className="flex justify-center w-3/12 h-auto shadow shadow-left-xl">
+      <div className="w-full md:w-3/12 ">
         <SectionsInfo handleSeatsBySection={handleSeatsBySection} />
       </div>
     </div>
