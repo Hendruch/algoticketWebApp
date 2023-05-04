@@ -1,10 +1,10 @@
-import Escenario from "../../assets/img/Escenario.png"
+import Escenario from "../../assets/Escenario.svg"
 
 function ZoneSelector() {
 
     return (
-        <div className="bg-black w-full h-full mb-10 px-5">
-            <img src={Escenario} className="h-auto w-auto" />
+        <div className="bg-black w-full h-full align-middle">
+            <img src={Escenario} className="h-full w-full" />
         </div>
 
     )

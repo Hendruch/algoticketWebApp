@@ -13,9 +13,6 @@ function SectionRowInfo(props) {
                 <p className="py-2">Palco {props.section}5<span className="ml-10">$999.99</span><button id={props.section + 5} onClick={props.handleSeatsBySection} className="ml-10">{">"}</button></p>
                 <p className="py-2">Palco {props.section}6<span className="ml-10">$999.99</span><button id={props.section + 6} onClick={props.handleSeatsBySection} className="ml-10">{">"}</button></p>
                 <p className="py-2">Palco {props.section}7<span className="ml-10">$999.99</span><button id={props.section + 7} onClick={props.handleSeatsBySection} className="ml-10">{">"}</button></p>
-                <p className="py-2">Palco {props.section}8<span className="ml-10">$999.99</span><button id={props.section + 8} onClick={props.handleSeatsBySection} className="ml-10">{">"}</button></p>
-                <p className="py-2">Palco {props.section}9<span className="ml-10">$999.99</span><button id={props.section + 9} onClick={props.handleSeatsBySection} className="ml-10">{">"}</button></p>
-                <p className="py-2">Palco {props.section}10<span className="ml-10">$999.99</span><button id={props.section + 10} onClick={props.handleSeatsBySection} className="ml-10">{">"}</button></p>
             </div>
         </>
     )
