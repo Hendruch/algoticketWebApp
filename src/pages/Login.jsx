@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import logo from "../assets/img/AlgoTicketLogo.png"
 import {auth, googleProvider} from "../config/firebase-config"
-import { createUserWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { useNavigate } from 'react-router';
 
 
@@ -15,7 +15,7 @@ function LoginPage(){
 
     const signIn = async () => {
         try{
-            await createUserWithEmailAndPassword(auth, email, password).then((value) => {
+            await signInWithEmailAndPassword(auth, email, password).then((value) => {
                 navigate("/");
             });
         }catch (err){
