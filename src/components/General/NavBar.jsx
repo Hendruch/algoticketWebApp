@@ -1,75 +1,173 @@
 import { useState } from "react";
-import AlgoTicketLogo from '../../assets/img/AlgoTicketLogo.png'
+import Logo from "../../assets/img/LogoLight.svg";
+import { Link } from "react-router-dom";
 function Navbar() {
+  const user = "Usuario";
 
-  const [userInfo,SetuserInfo] = useState(false);
-  const [Menu,SetMenu] = useState(true);
-
-  function ShowUserInfo(){
-    SetuserInfo(!userInfo);
+  function cerrarSesion() {
+    // Función para cerrar sesión
   }
 
-  function ShowMenu(){
-    SetMenu(!Menu);
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
+  function handleSearch() {
+    //Función para buscar
   }
+
+  //============= Cambiar el estado del navbar para movil
+  const toggleCollapse = () => {
+    const navbar = document.getElementById("navbar-default");
+    navbar.classList.toggle("hidden");
+  };
 
   return (
-  <div>
-      <nav class="bg-white border-gray-200 ">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a href="https://flowbite.com/" class="flex items-center">
-              <img src={AlgoTicketLogo} class="h-12 mr-3 pl-32" alt="Flowbite Logo" />
-          </a>
-          
-          <div class="flex items-center md:order-2">
-              <input className={"w-auto b-black"} placeholder="Buscar"/>
-              <button onClick={ShowUserInfo} type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-                <span class="sr-only">Open user menu</span>
-                <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo"/>
-              </button>
-          
-              <button onClick={ShowMenu} data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
-                <span class="sr-only">Open main menu</span>
-                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-              </button>
+    <div >
+      <nav className="fixed w-full z-50 bg-black">
+        <div className="flex flex-wrap justify-between mx-auto p-4 items-center">
+          <div className="flex items-center ml-5 xl:m-auto">
+            <Link to="/" className="flex items-center">
+              <img
+                src={Logo}
+                className="h-12 mr-3 whitespace-nowrapself-center"
+              />
+            </Link>
+          </div>
 
-              <div style={{display:userInfo ? 'block' : 'none', right: 0, top: 55 }} class="z-50 my-1 t-10 text-base list-none bg-white divide-y divide-gray-100  shadow dark:bg-gray-700 dark:divide-gray-600 w-auto absolute ..." id="user-dropdown">
-                <div class="px-4 py-3">
-                  <span class="block text-sm text-gray-900 dark:text-white">Eduardo Varela</span>
-                  <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">algoTicke@mail.com</span>
+          <button
+            data-collapse-toggle="navbar-default"
+            type="button"
+            className="inline-flex items-center p-2 ml-auto mr-5 text-sm text-gray-500 rounded-lg xl:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-default"
+            aria-expanded="false"
+            onClick={toggleCollapse}
+          >
+            <span className="sr-only">Open main menu</span>
+            <svg
+              className="w-6 h-6"
+              aria-hidden="true"
+              fillRule="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                className="fill-current text-white"
+                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                clipRule="evenodd"
+              ></path>
+            </svg>
+          </button>
+
+          <div
+            className="hidden w-full xl:w-auto self-center m-auto"
+            id="navbar-default"
+          >
+
+            <div>
+              {user ? (
+                <div className="col xl:hidden">
+                  <li className="pr-5">
+                    <p className="block text-sm font-semibold text-white text-right">
+                      {user}
+                    </p>
+                  </li>
+                  <li className="pr-5">
+                    <Link
+                      to="/#"
+                      className="block text-sm font-semibold text-white text-right hover:text-blue-500"
+                    >
+                      Cerrar sesión
+                    </Link>
+                  </li>
                 </div>
-                <ul class="py-2" aria-labelledby="user-menu-button">
-                  <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+              ) : (
+                <div className="col xl:hidden">
+                  <li className="pr-5">
+                    <Link
+                      to="/registro"
+                      className="block text-sm font-semibold text-white text-right hover:text-blue-500"
+                    >
+                      Unirse ahora
+                    </Link>
                   </li>
-                  <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
+                  <li className="pr-5">
+                    <Link
+                      to="/login"
+                      className="block text-sm font-semibold text-white rounded text-right hover:text-blue-500"
+                    >
+                      Iniciar sesión
+                    </Link>
                   </li>
-                  <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-                  </li>
-                  <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-                  </li>
-                </ul>
-              </div>
-          
+                </div>
+              )}
+            </div>
           </div>
           
-          <div style={{display:Menu ? 'block' : 'none'}} class="items-center justify-between w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
-            <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-zinc-100 md:dark:bg-white dark:border-white">
-              <li>
-                <a href="#" class="text-xl font-bold block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-black md:dark:hover:text-amber-500 dark:hover:bg-amber-500 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Eventos</a>
-              </li>
-            </ul>
+          <div className="hidden xl:block">
+            <div className="relative flex gap-5 items-center text-gray-600 focus-within:text-gray-400">
+              <a href="#" className="font-semibold text-white">Eventos </a>
+              <input
+                className="block w-full pl-9 py-1 border border-transparent rounded-full leading-5 bg-white placeholder-slate-300 focus:outline-none focus:bg-white focus:placeholder-gray-400 text-white focus:text-sky-950 focus:shadow-outline-blue sm:text-sm transition duration-150 ease-in-out"
+                placeholder="Buscar"
+                type="search"
+                id="search"
+                onChange={handleChange}
+              />
+              <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+                <button
+                  className="p-1 focus:outline-none focus:shadow-outline"
+                  onClick={handleSearch}
+                >
+                  <i className="fa-solid fa-magnifying-glass text-slate-300 focus:text-sky-950"></i>
+                </button>
+              </span>
+              <a href="#" className="font-semibold text-white">Perfil</a>
+            </div>
           </div>
 
+          <ul className="hidden font-medium self-center m-auto xl:flex flex-col p-1 xl:p-0 mt-4  xl:flex-row xl:space-x-6 xl:mt-0 xl:border-0">
+            {user ? (
+              <>
+                <div className="xl:flex items-center mt-2">
+                  <li className="py-2 mx-8">
+                    <p className="block py-2 pl-3 pr-5 text-sm text-white rounded xl:p-0 text-right">
+                      asd
+                    </p>
+                  </li>
+                  <li className="py-2">
+                    <Link
+                      onClick={cerrarSesion}
+                      className="block py-1 pl-3 pr-5 text-sm text-white rounded xl:p-0 text-right hover:text-blue-500"
+                    >
+                      Cerrar sesión
+                    </Link>
+                  </li>
+                </div>
+              </>
+            ) : (
+              <div className="xl:flex border-2 place-content-end mt-2" >
+                <li>
+                  <Link
+                    to="/registro"
+                    className="block text-sm font-semibold text-white p-2 xl:px-3 mx-3 xl:hover:bg-sky-900 rounded-full text-right"
+                  >
+                    Unirse ahora
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/login"
+                    className="block text-sm font-semibold text-white xl:hover:bg-sky-900 p-2 px-3 xl:border border-solid border-white rounded-full text-right"
+                  >
+                    Iniciar sesión
+                  </Link>
+                </li>
+              </div>
+            )}
+          </ul>
         </div>
       </nav>
-     
-      
-  </div>
-
+    </div>
   );
 }
 export { Navbar };
