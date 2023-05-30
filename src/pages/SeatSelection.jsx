@@ -13,7 +13,7 @@ function SeatSelection() {
         <Navbar />
       </div>
 
-      <EventDate />
+      <EventDate data={data} />
       <EventContainer />
     </div>
   );
