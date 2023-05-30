@@ -4,7 +4,7 @@ import { ZoneSelector } from "./ZoneSelector";
 import { SectionsInfo } from "./SectionsInfo"
 import { SeatSelector } from "./SeatSelector";
 
-function EventContainer() {
+function EventContainer({data}) {
 
   const [showZoneSelector, setZoneSelector] = useState(true);
   const [ZoneSelected, setZoneSelected] = useState("");
@@ -23,7 +23,7 @@ function EventContainer() {
         {showZoneSelector ? <ZoneSelector /> : <SeatSelector ZoneSelected={ZoneSelected} handleBack={handleBack} />}
       </div>
       <div className="w-full md:w-4/12 ">
-        <EventInfo />
+        <EventInfo data={data}/>
       </div>
       <div className="w-full md:w-3/12 ">
         <SectionsInfo handleSeatsBySection={handleSeatsBySection} />

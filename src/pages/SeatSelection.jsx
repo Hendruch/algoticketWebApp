@@ -12,9 +12,8 @@ function SeatSelection() {
       <div className="h-20">
         <Navbar />
       </div>
-
       <EventDate data={data} />
-      <EventContainer />
+      <EventContainer data={data}/>
     </div>
   );
 }

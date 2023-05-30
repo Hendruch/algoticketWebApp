@@ -34,6 +34,7 @@ class EventsRepository {
     const monthAbbreviation = getMonthAbbreviation(date.getMonth());
     const day = formatDay(date.getDate());
     const time = formatTime(date);
+    const servicios = eventData.servicios.join(',');
   
     console.log(lugarId);
     const lugarDocRef = doc(db, 'lugar', lugarId);
@@ -45,7 +46,8 @@ class EventsRepository {
         lugar: lugarData,
         mes: monthAbbreviation,
         day: day,
-        time:time
+        time:time,
+        services:servicios
       };
     } else {
       throw new Error('El documento en la colección "lugar" no existe.');
