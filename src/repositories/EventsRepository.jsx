@@ -1,5 +1,5 @@
 import { db } from '../config/firebase-config';
-import { getDoc, doc } from 'firebase/firestore';
+import { getDoc, doc, getDocs, query, where, collection } from 'firebase/firestore';
 
 // Función para obtener el nombre del mes en formato abreviado
 const getMonthAbbreviation = (monthIndex) => {
@@ -36,7 +36,6 @@ class EventsRepository {
     const time = formatTime(date);
     const servicios = eventData.servicios.join(',');
   
-    console.log(lugarId);
     const lugarDocRef = doc(db, 'lugar', lugarId);
     const lugarDoc = await getDoc(lugarDocRef);
     if (lugarDoc.exists()) {
@@ -54,8 +53,28 @@ class EventsRepository {
     }
 
     } else {
-      throw new Error('El usuario no existe.');
+      throw new Error('El evento no existe.');
     }
+  }
+
+  async getSections(seccion, eventoId){
+
+    const referencia = doc(db,'evento', eventoId);
+    const sectionsCollectionRef = collection(db, 'seccion');
+    const querySnapshot = await getDocs(query(
+      sectionsCollectionRef,
+      where('seccion', '==', seccion),
+      where('eventoId', '==', referencia)
+    ));
+  
+    const sections = [];
+
+    querySnapshot.forEach((doc) => {
+      sections.push({ id: doc.id, ...doc.data() });
+    });
+
+    return sections;
+
   }
 }
 
