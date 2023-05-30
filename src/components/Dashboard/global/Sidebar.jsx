@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
-import {useMenu} from '../../hooks/dashboards/useMenu';
 //ICONOS
-import { RiHome4Line, RiDashboardFill, RiCalendarEventFill,RiPieChartLine,RiMore2Fill,RiCloseFill } from "react-icons/ri";
+import { RiDashboardFill, RiCalendarEventLine,RiPieChartLine,RiMore2Fill,RiCloseFill, RiUser3Line } from "react-icons/ri";
+import { MdOutlinePlace, MdOutlineEventSeat } from "react-icons/md";
+import { IoTicket } from "react-icons/io5";
 import { NavLink } from 'react-router-dom';
 
-const SlidebarE = () => {
+const Sidebar = () => {
     const [showMenu, setShowMenu] = useState(false)
 
   return (
@@ -22,23 +23,27 @@ const SlidebarE = () => {
                 <nav className='flex flex-col gap-6'>
                     <NavLink to={'/'} className='flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-slate-900/50
                     transition-colors font-bold'>
-                        <RiHome4Line/>Inicio
+                        <RiUser3Line/>Usuarios
                     </NavLink>
                     <a href='#'  className='flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-slate-900/50
                     transition-colors font-bold'>
-                        <RiDashboardFill/>DashBoard Eventos
+                        <RiCalendarEventLine/>Eventos
                     </a>
                     <a href='#' className='flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-slate-900/50
                     transition-colors font-bold'>
-                        <RiDashboardFill/>DashBoard Lugares
+                        <MdOutlinePlace/>Lugares
                     </a>
                     <a href='#' className='flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-slate-900/50
                     transition-colors font-bold'>
-                        <RiCalendarEventFill/>Eventos Actuales
+                        <MdOutlineEventSeat/>Asientos
                     </a>
                     <a href='#' className='flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-slate-900/50
                     transition-colors font-bold'>
-                        <RiPieChartLine/>Reportes
+                        <RiDashboardFill/>Secciones
+                    </a>
+                    <a href='#' className='flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-slate-900/50
+                    transition-colors font-bold'>
+                        <IoTicket/>Boletos
                     </a>
                     
                 </nav>
@@ -57,4 +62,4 @@ const SlidebarE = () => {
   )
 }
 
-export default SlidebarE
+export default Sidebar
