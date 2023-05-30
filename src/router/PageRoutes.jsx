@@ -4,7 +4,6 @@ import EventsDashboard from "../pages/EventsDashboard";
 import SeatSelection from "../pages/SeatSelection"
 import Perfil from "../components/Perfil/perfil";
 import LoginPage from "../pages/Login";
-import RegistroPage from "../pages/Registro";
 import DashboardLayout from "../layouts/DashboardLayout";
 import DashEventos from "../components/Dashboard/Scenes/Evento";
 
@@ -18,8 +17,8 @@ function PageRoutes() {
                 <Route path="/asientos" element={<SeatSelection />} /> 
                 <Route path="/perfil" element={<Perfil/>} /> 
                 <Route path="/asientos" element={<SeatSelection />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/registro" element={<RegistroPage />} />
+                <Route path="/login" element={<LoginPage  propsRegistrando={false} />} />
+                <Route path="/registro" element={<LoginPage  propsRegistrando={true} />} />
                 <Route path="/DashEventos" element={<DashEventos />} />
             </Routes>
         </BrowserRouter>

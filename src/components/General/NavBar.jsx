@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Logo from "../../assets/img/LogoLight.svg";
 import { Link } from "react-router-dom";
+import { sesionContext } from "../../utils/sesion-context";
+import { getAuth, signOut } from "firebase/auth";
+
 function Navbar() {
-  const user = "Usuario";
+  const { user } = useContext(sesionContext);
+  const { setUser } = useContext(sesionContext);
+  const auth = getAuth();
 
   function cerrarSesion() {
-    // Función para cerrar sesión
+    signOut(auth).then(() => {
+      setUser(null)
+    }).catch((error) => {
+      console.log(error)
+    });
   }
 
   const handleChange = (e) => {
@@ -22,7 +31,7 @@ function Navbar() {
   };
 
   return (
-    <div >
+    <div>
       <nav className="fixed w-full z-50 bg-black">
         <div className="flex flex-wrap justify-between mx-auto p-4 items-center">
           <div className="flex items-center ml-5 xl:m-auto">
@@ -62,13 +71,12 @@ function Navbar() {
             className="hidden w-full xl:w-auto self-center m-auto"
             id="navbar-default"
           >
-
             <div>
               {user ? (
                 <div className="col xl:hidden">
                   <li className="pr-5">
                     <p className="block text-sm font-semibold text-white text-right">
-                      {user}
+                      {auth.currentUser.displayName}
                     </p>
                   </li>
                   <li className="pr-5">
@@ -102,10 +110,12 @@ function Navbar() {
               )}
             </div>
           </div>
-          
+
           <div className="hidden xl:block">
             <div className="relative flex gap-5 items-center text-gray-600 focus-within:text-gray-400">
-              <a href="#" className="font-semibold text-white">Eventos </a>
+              <a href="#" className="font-semibold text-white">
+                Eventos{" "}
+              </a>
               <input
                 className="block w-full pl-9 py-1 border border-transparent rounded-full leading-5 bg-white placeholder-slate-300 focus:outline-none focus:bg-white focus:placeholder-gray-400 text-white focus:text-sky-950 focus:shadow-outline-blue sm:text-sm transition duration-150 ease-in-out"
                 placeholder="Buscar"
@@ -121,7 +131,9 @@ function Navbar() {
                   <i className="fa-solid fa-magnifying-glass text-slate-300 focus:text-sky-950"></i>
                 </button>
               </span>
-              <a href="#" className="font-semibold text-white">Perfil</a>
+              <a href="#" className="font-semibold text-white">
+                Perfil
+              </a>
             </div>
           </div>
 
@@ -131,7 +143,7 @@ function Navbar() {
                 <div className="xl:flex items-center mt-2">
                   <li className="py-2 mx-8">
                     <p className="block py-2 pl-3 pr-5 text-sm text-white rounded xl:p-0 text-right">
-                      asd
+                      {user.displayName}
                     </p>
                   </li>
                   <li className="py-2">
@@ -145,7 +157,7 @@ function Navbar() {
                 </div>
               </>
             ) : (
-              <div className="xl:flex border-2 place-content-end mt-2" >
+              <div className="xl:flex place-content-end mt-2">
                 <li>
                   <Link
                     to="/registro"
