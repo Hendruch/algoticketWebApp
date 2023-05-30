@@ -9,7 +9,7 @@ function EventInfo (){
             <p>Duración aproximada : 3 horas</p>
             <p>Página oficial : <a className="underline underline-offset-1" href="https://luismigueloficial.com/">https://luismigueloficial.com/</a></p>
             <p>Personas con discapacidad: Capacidad de 50 personas</p>
-            <p>Event Info : Vive la experiencia de Luis Miguel en concierto</p>
+            <p>Descripción : Vive la experiencia de Luis Miguel en concierto</p>
         </div>
     )
 }
