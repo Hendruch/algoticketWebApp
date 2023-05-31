@@ -42,6 +42,7 @@ function SeatSelector({ seats, ZoneSelected, handleBack, eventID}) {
 
     useEffect(() => {
         if (data) {
+            console.log(data);
           const newItem = {
             asiento: asiento,
             estatus: true,
@@ -50,6 +51,7 @@ function SeatSelector({ seats, ZoneSelected, handleBack, eventID}) {
             usuario: idauth || '',
             precio: data[1] || '',
             evento_nombre: data[0] || '',
+            id_seccion: data[2] || '',
             asiento_nombre: (data[3] || '') + (data[4] || ''),
           };
           Setcarrito((prevCarrito) => [...prevCarrito, newItem]);

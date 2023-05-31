@@ -1,5 +1,5 @@
 import { db } from '../config/firebase-config';
-import { getDoc, doc, getDocs, query, where, collection } from 'firebase/firestore';
+import { getDoc, doc, getDocs, query, where, collection, setDoc, getFirestore } from 'firebase/firestore';
 
 // Función para obtener el nombre del mes en formato abreviado
 const getMonthAbbreviation = (monthIndex) => {
@@ -225,6 +225,32 @@ class EventsRepository {
   result.push(fila, numeroAsiento);
 
   return result;
+
+}
+async postCarrito(asientoId, estatus, eventoId, seccionId, usuarioId){
+  try {
+    // Obtiene una referencia a la instancia de Firestore
+    const firestore = getFirestore();
+
+    // Crea un nuevo objeto con los datos del carrito
+    const nuevoCarrito = {
+      asientos: asientoId,
+      estatus: estatus,
+      evento: eventoId,
+      id_seccion: seccionId,
+      usuario: usuarioId,
+    };
+
+    // Guarda el carrito en la colección "carritos"
+    const carritosCollection = doc(firestore, "boleto","n");
+    await setDoc(carritosCollection, nuevoCarrito);
+
+    console.log("Boleto guardado exitosamente");
+  } catch (error) {
+    // Manejo de errores
+    console.error("Error al guardar el boleto:", error);
+    throw error;
+  }
 
 }
 }

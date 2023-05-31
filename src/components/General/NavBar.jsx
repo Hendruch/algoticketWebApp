@@ -1,4 +1,4 @@
-import { useContext, Fragment, useState } from "react";
+import { useContext, Fragment, useState, useEffect } from "react";
 import Logo from "../../assets/img/LogoLight.svg";
 import { Link } from "react-router-dom";
 import { sesionContext } from "../../utils/sesion-context";
@@ -11,6 +11,7 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
  import { CarritoContext } from '../../App';
+ import { usePostCarrito } from "../../hooks/Events/usePostCarrito";
 
 function Navbar() {
 
@@ -18,6 +19,7 @@ function Navbar() {
   const { user } = useContext(sesionContext);
   const { setUser } = useContext(sesionContext);
   const auth = getAuth();
+  const {carritos, crearcarrito} = usePostCarrito();
 
   function cerrarSesion() {
     signOut(auth).then(() => {
@@ -31,7 +33,7 @@ function Navbar() {
     setSearch(e.target.value);
   };
   function handleSearch() {
-    //Función para buscar
+    //usePostCarrito()
   }
 
   //============= Cambiar el estado del navbar para movil
@@ -44,10 +46,21 @@ function Navbar() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
+  const addCarrito = () =>{
+    //const asientos = carrito.map(item => item?.asiento);
+    crearcarrito(carrito[0]?.asiento,true,carrito[0]?.evento,carrito[0]?.id_seccion,carrito[0]?.usuario);
+    setOpen(!open);
+  }
+  console.log(carrito)
+
   const eliminarItem = (asiento) => {
     const nuevoCarrito = carrito.filter((item) => item.asiento !== asiento);
     Setcarrito(nuevoCarrito);
   };
+
+  useEffect(() => {
+    console.log("Carrito state updated:", carrito);
+  }, [carrito]);
 
   return (
     <div>
@@ -245,7 +258,7 @@ function Navbar() {
             >
               <span>Cerrar</span>
             </Button>
-            <Button variant="gradient" color="orange" onClick={handleOpen}>
+            <Button variant="gradient" color="orange" onClick={addCarrito}>
               <span>Pagar</span>
             </Button>
           </DialogFooter>
