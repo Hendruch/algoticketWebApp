@@ -6,6 +6,7 @@ import Perfil from "../components/Perfil/perfil";
 import LoginPage from "../pages/Login";
 import DashboardLayout from "../layouts/DashboardLayout";
 import DashEventos from "../components/Dashboard/Scenes/Evento";
+import DashAsientos from "../components/Dashboard/Scenes/Asiento";
 
 function PageRoutes() {
     return (
@@ -16,10 +17,10 @@ function PageRoutes() {
                 <Route path="/CRUDe" element={<EventsDashboard />} />
                 <Route path="/asientos" element={<SeatSelection />} /> 
                 <Route path="/perfil" element={<Perfil/>} /> 
-                <Route path="/asientos" element={<SeatSelection />} />
                 <Route path="/login" element={<LoginPage  propsRegistrando={false} />} />
                 <Route path="/registro" element={<LoginPage  propsRegistrando={true} />} />
                 <Route path="/DashEventos" element={<DashEventos />} />
+                <Route path="/DashAsientos" element={<DashAsientos />} />
             </Routes>
         </BrowserRouter>
       </>
