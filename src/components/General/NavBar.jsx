@@ -1,8 +1,15 @@
-import { useContext, useState } from "react";
+import { useContext, Fragment, useState } from "react";
 import Logo from "../../assets/img/LogoLight.svg";
 import { Link } from "react-router-dom";
 import { sesionContext } from "../../utils/sesion-context";
 import { getAuth, signOut } from "firebase/auth";
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
 
 function Navbar() {
   const { user } = useContext(sesionContext);
@@ -29,6 +36,10 @@ function Navbar() {
     const navbar = document.getElementById("navbar-default");
     navbar.classList.toggle("hidden");
   };
+
+  //Modal
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(!open);
 
   return (
     <div>
@@ -131,8 +142,8 @@ function Navbar() {
                   <i className="fa-solid fa-magnifying-glass text-slate-300 focus:text-sky-950"></i>
                 </button>
               </span>
-              <a href="#" className="font-semibold text-white">
-                Perfil
+              <a href="#" onClick={handleOpen} className="font-semibold text-white">
+              <i class="fa-solid fa-cart-shopping" />
               </a>
             </div>
           </div>
@@ -179,6 +190,30 @@ function Navbar() {
           </ul>
         </div>
       </nav>
+      <Fragment>
+        <Dialog open={open} handler={handleOpen}>
+          <DialogHeader>Título</DialogHeader>
+          <DialogBody divider>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus
+            ad reprehenderit omnis perspiciatis aut odit! Unde architecto
+            perspiciatis, dolorum dolorem iure quia saepe autem accusamus eum
+            praesentium magni corrupti explicabo!
+          </DialogBody>
+          <DialogFooter>
+            <Button
+              variant="text"
+              color="red"
+              onClick={handleOpen}
+              className="mr-1"
+            >
+              <span>Cancelar</span>
+            </Button>
+            <Button variant="gradient" color="green" onClick={handleOpen}>
+              <span>Aceptar</span>
+            </Button>
+          </DialogFooter>
+        </Dialog>
+      </Fragment>
     </div>
   );
 }
