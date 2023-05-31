@@ -6,7 +6,7 @@ import { SeatSelector } from "./SeatSelector";
 import { useGetSections } from "../../hooks/Events/useGetSections";
 import { useGetSeats } from "../../hooks/Events/useGetSeats";
 
-function EventContainer({data}) {
+function EventContainer({data,eventID}) {
 
   const [showZoneSelector, setZoneSelector] = useState(true);
 
@@ -19,7 +19,7 @@ function EventContainer({data}) {
   const [section_number, setSection_number] = useState('');
 
 
-  const eventId = "0LxhOXzXh8cmtgscvBWO";
+  const eventId = eventID;
 
 
   const { data: sections, refetch: sectionsRefetch } = useGetSections(section,eventId);

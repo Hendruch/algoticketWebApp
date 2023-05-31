@@ -5,6 +5,8 @@ import Default from '../assets/img/Default.jpeg';
 function Concert_cart({card}) {
   var numero = 0;
 
+  const navigate = useNavigate();
+
   const changeElementChildText = () => {
     if(numero === 0){
       const element = document.getElementById("Corazon");
@@ -18,6 +20,12 @@ function Concert_cart({card}) {
     }
     
   };
+
+  const handleNavigation = (event) => {
+    const id = event.target.id;
+    navigate(`/asientos?param=${id}`);
+  };
+
 
   return (
     <div
@@ -52,8 +60,8 @@ function Concert_cart({card}) {
           <button className="mr-auto">
             <a href="/asientos" className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-gray-700 ">Más Info</a>
           </button>
-          <button className="mr-auto">
-            <a href="/asientos" className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-gray-700 ">Reservar</a>
+          <button  className="mr-auto" >
+            <a id={card?.id} onClick={handleNavigation} className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-gray-700 ">Reservar</a>
           </button>
           <button className="mr-auto">
             <a id="Corazon" onClick={changeElementChildText} className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-gray-700 ">♡</a>

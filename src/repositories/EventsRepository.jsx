@@ -137,10 +137,11 @@ class EventsRepository {
   async getAllEvents(){
     const eventsCollectionRef = collection(db, 'evento');
     const eventsQuerySnapshot = await getDocs(eventsCollectionRef);
-  
+
     const events = [];
   
     for (const docSnap of eventsQuerySnapshot.docs) {
+      const eventId = docSnap.id;
       const eventData = docSnap.data();
   
       const lugarId = eventData.lugarId._key.path.segments[6];
@@ -157,6 +158,7 @@ class EventsRepository {
       if (lugarDoc.exists()) {
         const lugarData = lugarDoc.data();
         const event = {
+          id: eventId,
           ...eventData,
           lugar: lugarData,
           mes: monthAbbreviation,
