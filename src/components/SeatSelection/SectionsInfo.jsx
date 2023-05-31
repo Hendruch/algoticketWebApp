@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { SectionRowInfo } from "./SectionRowInfo"
 
-function SectionsInfo({ handleSeatsBySection }) {
+function SectionsInfo({ section, setSection, sections, handleSeatsBySection }) {
     
-    const [section,setSection] = useState('A');
     const [color,setColor] = useState('rgb(234 179 8)');
 
     function handleChange(event){
+        
         setSection(event.target.value);
         if (event.target.value === 'A'){
             setColor('rgb(234 179 8)');
@@ -32,7 +32,7 @@ function SectionsInfo({ handleSeatsBySection }) {
                 <option value="D">Sección D</option>
             </select>
             
-            <SectionRowInfo color={color} section={section} handleSeatsBySection={handleSeatsBySection} />
+            <SectionRowInfo sections={sections} color={color} section={section} handleSeatsBySection={handleSeatsBySection} />
         </div>
     )
 }

@@ -64,7 +64,7 @@ class EventsRepository {
     const querySnapshot = await getDocs(query(
       sectionsCollectionRef,
       where('seccion', '==', seccion),
-      where('eventoId', '==', referencia)
+      where('eventoId', '==', referencia),
     ));
   
     const sections = [];

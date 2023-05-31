@@ -2,14 +2,11 @@ import { EventDate } from "../components/SeatSelection/EventDate";
 import { EventContainer } from "../components/SeatSelection/EventContainer";
 import { Navbar } from "../components/General/NavBar";
 import { useGetEvents } from "../hooks/Events/useGetEvents";
-import { useGetSections } from "../hooks/Events/useGetSections";
 
 function SeatSelection() {
-  const eventId = "0LxhOXzXh8cmtgscvBWO";
-  const seccion = "B1";
-  const { data, refetch } = useGetEvents(eventId);
-  const { data: sections, refetch: sectconionsRefetch } = useGetSections(seccion,eventId);
 
+  const eventId = "0LxhOXzXh8cmtgscvBWO";
+  const { data, refetch } = useGetEvents(eventId);
 
   return (
     <div className="min-h-screen flex flex-col">

@@ -3,11 +3,20 @@ import { EventInfo } from "./EventInfo";
 import { ZoneSelector } from "./ZoneSelector";
 import { SectionsInfo } from "./SectionsInfo"
 import { SeatSelector } from "./SeatSelector";
+import { useGetSections } from "../../hooks/Events/useGetSections";
 
 function EventContainer({data}) {
 
   const [showZoneSelector, setZoneSelector] = useState(true);
-  const [ZoneSelected, setZoneSelected] = useState("");
+
+  // This is from seats
+  const [ZoneSelected, setZoneSelected] = useState('');
+
+  // This is from dropdown info
+  const [section, setSection] = useState('A');
+
+  const eventId = "0LxhOXzXh8cmtgscvBWO";
+  const { data: sections, refetch: sectconionsRefetch } = useGetSections(section,eventId);
 
   const handleSeatsBySection = (event) => {
     setZoneSelector(false);
@@ -26,7 +35,7 @@ function EventContainer({data}) {
         <EventInfo data={data}/>
       </div>
       <div className="w-full md:w-3/12 ">
-        <SectionsInfo handleSeatsBySection={handleSeatsBySection} />
+        <SectionsInfo section={section} setSection={setSection} sections={sections} handleSeatsBySection={handleSeatsBySection} />
       </div>
     </div>
   );
