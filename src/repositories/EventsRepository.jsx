@@ -95,6 +95,45 @@ class EventsRepository {
   
 
   }
+  async getSeatsBySections(seccion, seccion_num, eventoId){
+
+    const referencia = doc(db, 'evento', eventoId);
+    const sectionsCollectionRef = collection(db, 'seccion');
+    const querySnapshot = await getDocs(query(
+      sectionsCollectionRef,
+      where('seccion', '==', seccion),
+      where('seccion_num', '==', seccion_num),
+      where('eventoId', '==', referencia),
+    ));
+  
+    const sections = [];
+  
+    await Promise.all(querySnapshot.docs.map(async (doc) => {
+      const sectionData = doc.data();
+      const sectionWithReferences = {
+        id: doc.id,
+        ...sectionData,
+        rango_asientos: [], // Array to hold objects referenced in 'rango_asientos'
+      };
+  
+      const references = sectionData.rango_asientos || [];
+  
+      const referencePromises = references.map((reference) => getDoc(reference));
+      const referenceSnapshots = await Promise.all(referencePromises);
+  
+      referenceSnapshots.forEach((referenceSnapshot) => {
+        if (referenceSnapshot.exists()) {
+          sectionWithReferences.rango_asientos.push(referenceSnapshot.data());
+        }
+      });
+  
+      sections.push(sectionWithReferences);
+    }));
+  
+    return sections;
+  
+
+  }
 }
 
 export default new EventsRepository();

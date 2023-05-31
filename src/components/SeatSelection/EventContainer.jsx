@@ -4,6 +4,7 @@ import { ZoneSelector } from "./ZoneSelector";
 import { SectionsInfo } from "./SectionsInfo"
 import { SeatSelector } from "./SeatSelector";
 import { useGetSections } from "../../hooks/Events/useGetSections";
+import { useGetSeats } from "../../hooks/Events/useGetSeats";
 
 function EventContainer({data}) {
 
@@ -15,12 +16,20 @@ function EventContainer({data}) {
   // This is from dropdown info
   const [section, setSection] = useState('A');
 
+  const [section_number, setSection_number] = useState('');
+
+
   const eventId = "0LxhOXzXh8cmtgscvBWO";
-  const { data: sections, refetch: sectconionsRefetch } = useGetSections(section,eventId);
+
+
+  const { data: sections, refetch: sectionsRefetch } = useGetSections(section,eventId);
+  const { data: seats, refetch: seatsRefetch } = useGetSeats(section,section_number,eventId);
+
 
   const handleSeatsBySection = (event) => {
     setZoneSelector(false);
     setZoneSelected(event.target.id.toUpperCase());
+    setSection_number(parseInt(event.target.id.match(/\d+/g),10))
   };
 
   const handleBack = () => {
