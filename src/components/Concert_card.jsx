@@ -7,19 +7,6 @@ function Concert_cart({card}) {
 
   const navigate = useNavigate();
 
-  const changeElementChildText = () => {
-    if(numero === 0){
-      const element = document.getElementById("Corazon");
-      element.innerHTML = "♥";
-      numero = 1;
-    }
-    else if(numero === 1){
-      const element = document.getElementById("Corazon");
-      element.innerHTML = "♡";
-      numero = 0;
-    }
-    
-  };
 
   const handleNavigation = (event) => {
     const id = event.target.id;
@@ -63,9 +50,7 @@ function Concert_cart({card}) {
           <button  className="mr-auto" >
             <a id={card?.id} onClick={handleNavigation} className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-gray-700 ">Reservar</a>
           </button>
-          <button className="mr-auto">
-            <a id="Corazon" onClick={changeElementChildText} className="font-semibold py-3 px-6 text-white bg-black rounded-full hover:bg-gray-700 ">♡</a>
-          </button>
+          
         </div>
       </div>
     </div>
