@@ -25,18 +25,18 @@ const Sidebar = () => {
                     transition-colors font-bold'>
                         <RiUser3Line/>Usuarios
                     </NavLink>
-                    <a href='#'  className='flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-slate-900/50
+                    <NavLink to={'/DashEventos'} className='flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-slate-900/50
                     transition-colors font-bold'>
                         <RiCalendarEventLine/>Eventos
-                    </a>
-                    <a href='#' className='flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-slate-900/50
+                    </NavLink>
+                    <NavLink to={'/'} className='flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-slate-900/50
                     transition-colors font-bold'>
                         <MdOutlinePlace/>Lugares
-                    </a>
-                    <a href='#' className='flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-slate-900/50
+                    </NavLink>
+                    <NavLink to={'/DashAsientos'} className='flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-slate-900/50
                     transition-colors font-bold'>
                         <MdOutlineEventSeat/>Asientos
-                    </a>
+                    </NavLink>
                     <a href='#' className='flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-slate-900/50
                     transition-colors font-bold'>
                         <RiDashboardFill/>Secciones
