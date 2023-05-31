@@ -1,9 +1,10 @@
 import React from "react";
-import Banner_cart from "../components/Concert_cart";
-import Concert_cart from "../components/Concert_cart";
+import Concert_card from "../components/Concert_card";
 import { Navbar } from "../components/General/NavBar";
+import { useGetAllEvents } from "../hooks/Events/useGetAllEvents";
 
 function Home() {
+  const { data, refetch } = useGetAllEvents();
   return (
     <>
     <Navbar/>
@@ -26,8 +27,12 @@ function Home() {
             <h1 className="font-bold text-center md:text-left banner_tittle_2 mt-12">
               Tus eventos favoritos
             </h1>
-            <div className="flex w-full items-center justify-center">
-              <Concert_cart />
+            <div className="w-full items-center justify-center">
+                {
+                    data && data.map((card) => (
+                      <Concert_card card={card} />
+                    ))
+                }
             </div>
           </div>
         </div>

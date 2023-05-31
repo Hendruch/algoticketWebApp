@@ -8,7 +8,7 @@ function EventDate({data}) {
       <div className="py-7">
         <h1 className="text-5xl font-bold">{data?.artista}</h1>
         <p className="text-lg font-bold">
-          {data?.lugar.entidad_federativa}, {data?.lugar.ciudad} | {data?.lugar.inmueble} | {data?.time}
+          {data?.lugar.ciudad}, {data?.lugar.entidad_federativa} | {data?.lugar.inmueble} | {data?.time}
         </p>
       </div>
     </div>

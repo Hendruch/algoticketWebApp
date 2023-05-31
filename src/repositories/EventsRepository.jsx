@@ -134,6 +134,45 @@ class EventsRepository {
   
 
   }
+  async getAllEvents(){
+    const eventsCollectionRef = collection(db, 'evento');
+    const eventsQuerySnapshot = await getDocs(eventsCollectionRef);
+  
+    const events = [];
+  
+    for (const docSnap of eventsQuerySnapshot.docs) {
+      const eventData = docSnap.data();
+  
+      const lugarId = eventData.lugarId._key.path.segments[6];
+  
+      const date = eventData.fecha.toDate();
+      const monthAbbreviation = getMonthAbbreviation(date.getMonth());
+      const day = formatDay(date.getDate());
+      const time = formatTime(date);
+      const servicios = eventData.servicios.join(',');
+  
+      const lugarDocRef = doc(db, 'lugar', lugarId);
+      const lugarDoc = await getDoc(lugarDocRef);
+  
+      if (lugarDoc.exists()) {
+        const lugarData = lugarDoc.data();
+        const event = {
+          ...eventData,
+          lugar: lugarData,
+          mes: monthAbbreviation,
+          day: day,
+          time: time,
+          services: servicios,
+        };
+        events.push(event);
+      } else {
+        throw new Error('El documento en la colección "lugar" no existe.');
+      }
+    }
+  
+    return events;
+  }
+
 }
 
 export default new EventsRepository();
