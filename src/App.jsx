@@ -26,7 +26,7 @@ function App() {
           <CarritoContext.Provider value={{ carrito, Setcarrito }}>
             <PageRoutes />
             <ReactQueryDevtools initialIsOpen={false} />
-            </CarritoContext.Provider>
+          </CarritoContext.Provider>
         </QueryClientProvider>
       </SesionContextProvider>
     </ThemeProvider>

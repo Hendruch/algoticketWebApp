@@ -31,36 +31,24 @@ function SeatSelector({ seats, ZoneSelected, handleBack, eventID}) {
         setasiento(event.target.id);
         seteventoId(eventID);
         setseccion(ZoneSelected);
-
-        if (data && data.length >= 2) {
-            const newItem = {
-              asiento: event.target.id,
-              estatus: true,
-              evento: eventID,
-              seccion: ZoneSelected,
-              usuario: "Eduardo Varela",
-              precio: data[1],
-              evento_nombre:data[0],
-              asiento_nombre:data[3]+data[4]
-            };
-        
-            Setcarrito((prevCarrito) => [...prevCarrito, newItem]);
-
-            refetch();
-          }
-        
-        // const newItem = {
-        //     asiento: event.target.id,
-        //     estatus:true,
-        //     evento: eventID,
-        //     seccion: ZoneSelected,
-        //     usuario:'Eduardo Varela',
-        //     precio:data[1],
-        //   };
-
-        //   Setcarrito([...carrito,newItem]);
-        
+  
     }
+
+    useEffect(() => {
+        if (data) {
+          const newItem = {
+            asiento: asiento,
+            estatus: true,
+            evento: eventoId,
+            seccion: seccion,
+            usuario: 'Eduardo Varela',
+            precio: data[1] || '',
+            evento_nombre: data[0] || '',
+            asiento_nombre: (data[3] || '') + (data[4] || ''),
+          };
+          Setcarrito((prevCarrito) => [...prevCarrito, newItem]);
+        }
+      }, [data, asiento, eventoId, seccion]);
 
     return (
         <div style={{ color: 'white' }} className="bg-black w-full h-full pt-5 px-5">
