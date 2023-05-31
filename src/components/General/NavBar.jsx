@@ -203,6 +203,7 @@ function Navbar() {
                 <tr>
                   <th className="px-4 py-2">Asiento</th>
                   <th className="px-4 py-2">Sección</th>
+                  <th className="px-4 py-2">Precio</th>
                   <th className="px-4 py-2">Evento</th>
                   <th className="px-4 py-2">Acciones</th>
                 </tr>
@@ -213,6 +214,7 @@ function Navbar() {
                     <tr key={carrito?.asiento} className="text-center">
                       <td className="border px-4 py-2">{carrito?.asiento}</td>
                       <td className="border px-4 py-2">{carrito?.seccion}</td>
+                      <td className="border px-4 py-2">${carrito?.precio}</td>
                       <td className="border px-4 py-2">{carrito?.evento}</td>
                       <td className="border px-4 py-2">
                         <button

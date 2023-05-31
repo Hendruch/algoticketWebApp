@@ -24,7 +24,8 @@ function SeatSelector({ seats, ZoneSelected, handleBack, eventID}) {
             estatus:true,
             evento: eventID,
             seccion: ZoneSelected,
-            usuario:'Eduardo Varela'
+            usuario:'Eduardo Varela',
+            precio:'800'
           };
         Setcarrito([...carrito,newItem]);  
         console.log(carrito);
