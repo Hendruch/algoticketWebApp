@@ -212,10 +212,10 @@ function Navbar() {
                 {
                   carrito && carrito.map((carrito) => (
                     <tr key={carrito?.asiento} className="text-center">
-                      <td className="border px-4 py-2">{carrito?.asiento}</td>
+                      <td className="border px-4 py-2">{carrito?.asiento_nombre}</td>
                       <td className="border px-4 py-2">{carrito?.seccion}</td>
                       <td className="border px-4 py-2">${carrito?.precio}</td>
-                      <td className="border px-4 py-2">{carrito?.evento}</td>
+                      <td className="border px-4 py-2">{carrito?.evento_nombre}</td>
                       <td className="border px-4 py-2">
                         <button
                           className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"

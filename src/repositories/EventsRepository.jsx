@@ -173,7 +173,60 @@ class EventsRepository {
   
     return events;
   }
+  async getCarritoInfo(eventoId, asiento, seccion){
+    const result = [];
 
+  // Obtener el artista del evento
+  const eventoRef = doc(db, 'evento', eventoId);
+  const eventoDoc = await getDoc(eventoRef);
+
+  if (!eventoDoc.exists()) {
+    throw new Error('No se encontró el evento');
+  }
+
+  const eventoData = eventoDoc.data();
+  const artista = eventoData.artista;
+  result.push(artista);
+
+  // Obtener el precio y el ID de la sección
+  const seccionLetra = seccion.charAt(0);
+  const seccionNumero = parseInt(seccion.substring(1));
+
+  const seccionesCollectionRef = collection(db, 'seccion');
+  const querySnapshot = await getDocs(query(
+    seccionesCollectionRef,
+    where('eventoId', '==', eventoRef),
+    where('seccion', '==', seccionLetra),
+    where('seccion_num', '==', seccionNumero)
+  ));
+
+  if (querySnapshot.empty) {
+    throw new Error('No se encontró la sección en el evento');
+  }
+
+  const seccionDoc = querySnapshot.docs[0];
+  const seccionData = seccionDoc.data();
+  const precio = seccionData.precio;
+  const seccionId = seccionDoc.id;
+  result.push(precio, seccionId);
+
+  // Obtener información del asiento
+  const asientosCollectionRef = collection(db, 'asiento');
+  const asientoDoc = await getDoc(doc(asientosCollectionRef, asiento));
+
+  if (!asientoDoc.exists()) {
+    throw new Error('No se encontró el asiento');
+  }
+
+  const asientoData = asientoDoc.data();
+  const fila = asientoData.fila;
+  const numeroAsiento = asientoData.numero_asiento;
+
+  result.push(fila, numeroAsiento);
+
+  return result;
+
+}
 }
 
 export default new EventsRepository();

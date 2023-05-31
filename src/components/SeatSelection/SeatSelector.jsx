@@ -1,10 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import { CarritoContext } from '../../App';
+import { useGetCarrito } from "../../hooks/Events/useGetCarrito";
+
 
 function SeatSelector({ seats, ZoneSelected, handleBack, eventID}) {
 
     const [color, setColor] = useState("");
     const { carrito, Setcarrito } = useContext(CarritoContext);
+
+    const [eventoId, seteventoId] = useState("");
+    const [asiento, setasiento] = useState("");
+    const [seccion, setseccion] = useState("");
+
+    const { data, refetch } = useGetCarrito(eventoId,asiento,seccion);
 
     useEffect(() => {
         if (/A/.test(ZoneSelected)) {
@@ -19,16 +27,39 @@ function SeatSelector({ seats, ZoneSelected, handleBack, eventID}) {
     })
 
     const handleSelectSeat = (event) => {
-        const newItem = {
-            asiento: event.target.id,
-            estatus:true,
-            evento: eventID,
-            seccion: ZoneSelected,
-            usuario:'Eduardo Varela',
-            precio:'800'
-          };
-        Setcarrito([...carrito,newItem]);  
-        console.log(carrito);
+
+        setasiento(event.target.id);
+        seteventoId(eventID);
+        setseccion(ZoneSelected);
+
+        if (data && data.length >= 2) {
+            const newItem = {
+              asiento: event.target.id,
+              estatus: true,
+              evento: eventID,
+              seccion: ZoneSelected,
+              usuario: "Eduardo Varela",
+              precio: data[1],
+              evento_nombre:data[0],
+              asiento_nombre:data[3]+data[4]
+            };
+        
+            Setcarrito((prevCarrito) => [...prevCarrito, newItem]);
+
+            refetch();
+          }
+        
+        // const newItem = {
+        //     asiento: event.target.id,
+        //     estatus:true,
+        //     evento: eventID,
+        //     seccion: ZoneSelected,
+        //     usuario:'Eduardo Varela',
+        //     precio:data[1],
+        //   };
+
+        //   Setcarrito([...carrito,newItem]);
+        
     }
 
     return (
