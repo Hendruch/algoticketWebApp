@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function SeatSelector({ ZoneSelected, handleBack }) {
+function SeatSelector({ seats, ZoneSelected, handleBack }) {
 
     const [color, setColor] = useState("");
 
@@ -38,7 +38,12 @@ function SeatSelector({ ZoneSelected, handleBack }) {
             </div>
             <div className="grid grid-cols-10">
 
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded mb-4" style={{ backgroundColor: color }} >1</button>
+                {
+                    seats && seats[0].rango_asientos.map((seat) => (
+                        <button onClick={handleSelectSeat} className="h-10 w-10 rounded mb-4" style={{ backgroundColor: color }} >{seat?.fila + seat?.numero_asiento}</button>
+                    ))
+                }
+                {/* <button onClick={handleSelectSeat} className="h-10 w-10 rounded mb-4" style={{ backgroundColor: color }} >1</button>
                 <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >2</button>
                 <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >3</button>
                 <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >4</button>
@@ -58,7 +63,7 @@ function SeatSelector({ ZoneSelected, handleBack }) {
                 <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >17</button>
                 <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >18</button>
                 <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >19</button>
-                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >20</button>
+                <button onClick={handleSelectSeat} className="h-10 w-10 rounded" style={{ backgroundColor: color }} >20</button> */}
             </div>
         </div>
     )

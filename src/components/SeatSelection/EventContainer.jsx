@@ -38,7 +38,7 @@ function EventContainer({data}) {
   return (
     <div className="flex flex-wrap">
       <div className="w-full md:w-5/12 p-6">
-        {showZoneSelector ? <ZoneSelector /> : <SeatSelector ZoneSelected={ZoneSelected} handleBack={handleBack} />}
+        {showZoneSelector ? <ZoneSelector /> : <SeatSelector seats={seats} ZoneSelected={ZoneSelected} handleBack={handleBack} />}
       </div>
       <div className="w-full md:w-4/12 ">
         <EventInfo data={data}/>
