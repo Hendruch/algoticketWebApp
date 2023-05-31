@@ -1,12 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import { CarritoContext } from '../../App';
 import { useGetCarrito } from "../../hooks/Events/useGetCarrito";
+import { getAuth } from "firebase/auth";
 
 
 function SeatSelector({ seats, ZoneSelected, handleBack, eventID}) {
 
+    const auth = getAuth();
+
+    const idauth = auth.currentUser.uid;
+
     const [color, setColor] = useState("");
     const { carrito, Setcarrito } = useContext(CarritoContext);
+
 
     const [eventoId, seteventoId] = useState("");
     const [asiento, setasiento] = useState("");
@@ -41,7 +47,7 @@ function SeatSelector({ seats, ZoneSelected, handleBack, eventID}) {
             estatus: true,
             evento: eventoId,
             seccion: seccion,
-            usuario: 'Eduardo Varela',
+            usuario: idauth || '',
             precio: data[1] || '',
             evento_nombre: data[0] || '',
             asiento_nombre: (data[3] || '') + (data[4] || ''),
