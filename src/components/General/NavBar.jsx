@@ -10,8 +10,11 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
+ import { CarritoContext } from '../../App';
 
 function Navbar() {
+
+  const { carrito, Setcarrito } = useContext(CarritoContext);
   const { user } = useContext(sesionContext);
   const { setUser } = useContext(sesionContext);
   const auth = getAuth();
@@ -143,7 +146,7 @@ function Navbar() {
                 </button>
               </span>
               <a href="#" onClick={handleOpen} className="font-semibold text-white">
-              <i class="fa-solid fa-cart-shopping" />
+              <i className="fa-solid fa-cart-shopping" />
               </a>
             </div>
           </div>
@@ -191,13 +194,39 @@ function Navbar() {
         </div>
       </nav>
       <Fragment>
-        <Dialog open={open} handler={handleOpen}>
-          <DialogHeader>Título</DialogHeader>
-          <DialogBody divider>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-            ad reprehenderit omnis perspiciatis aut odit! Unde architecto
-            perspiciatis, dolorum dolorem iure quia saepe autem accusamus eum
-            praesentium magni corrupti explicabo!
+        <Dialog open={open} handler={handleOpen} size="xl">
+          <DialogHeader>Carrito de compras</DialogHeader>
+          <DialogBody divider >
+          <div className="container mx-auto">
+            <table className="table-auto w-full">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2">Asiento</th>
+                  <th className="px-4 py-2">Sección</th>
+                  <th className="px-4 py-2">Evento</th>
+                  <th className="px-4 py-2">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  carrito && carrito.map((carrito) => (
+                    <tr key={carrito?.asiento} className="text-center">
+                      <td className="border px-4 py-2">{carrito?.asiento}</td>
+                      <td className="border px-4 py-2">{carrito?.seccion}</td>
+                      <td className="border px-4 py-2">{carrito?.evento}</td>
+                      <td className="border px-4 py-2">
+                        <button
+                          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        >
+                          Eliminar
+                        </button>
+                      </td>
+                    </tr>))
+                }
+                </tbody>
+            </table>
+          </div>
+
           </DialogBody>
           <DialogFooter>
             <Button
@@ -206,10 +235,10 @@ function Navbar() {
               onClick={handleOpen}
               className="mr-1"
             >
-              <span>Cancelar</span>
+              <span>Cerrar</span>
             </Button>
-            <Button variant="gradient" color="green" onClick={handleOpen}>
-              <span>Aceptar</span>
+            <Button variant="gradient" color="orange" onClick={handleOpen}>
+              <span>Pagar</span>
             </Button>
           </DialogFooter>
         </Dialog>

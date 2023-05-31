@@ -30,7 +30,7 @@ function Home() {
             <div className="w-full items-center justify-center">
                 {
                     data && data.map((card) => (
-                      <Concert_card card={card} />
+                      <Concert_card key={card?.id} card={card} />
                     ))
                 }
             </div>

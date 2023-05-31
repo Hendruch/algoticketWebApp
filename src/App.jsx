@@ -4,6 +4,9 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import "./App.css";
 import { SesionContextProvider } from "./utils/sesion-context";
 import { ThemeProvider } from "@material-tailwind/react";
+import React, {  createContext , useState } from "react";
+
+export const CarritoContext = createContext();
 
 function App() {
   const queryClient = new QueryClient({
@@ -14,12 +17,16 @@ function App() {
     },
   });
 
+  const [carrito, Setcarrito] = useState([]);
+
   return (
     <ThemeProvider>
       <SesionContextProvider>
         <QueryClientProvider client={queryClient}>
-          <PageRoutes />
-          <ReactQueryDevtools initialIsOpen={false} />
+          <CarritoContext.Provider value={{ carrito, Setcarrito }}>
+            <PageRoutes />
+            <ReactQueryDevtools initialIsOpen={false} />
+            </CarritoContext.Provider>
         </QueryClientProvider>
       </SesionContextProvider>
     </ThemeProvider>

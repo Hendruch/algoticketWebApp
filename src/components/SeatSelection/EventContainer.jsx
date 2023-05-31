@@ -6,7 +6,7 @@ import { SeatSelector } from "./SeatSelector";
 import { useGetSections } from "../../hooks/Events/useGetSections";
 import { useGetSeats } from "../../hooks/Events/useGetSeats";
 
-function EventContainer({data,eventID}) {
+function EventContainer({data, eventID}) {
 
   const [showZoneSelector, setZoneSelector] = useState(true);
 
@@ -38,7 +38,7 @@ function EventContainer({data,eventID}) {
   return (
     <div className="flex flex-wrap">
       <div className="w-full md:w-5/12 p-6">
-        {showZoneSelector ? <ZoneSelector /> : <SeatSelector seats={seats} ZoneSelected={ZoneSelected} handleBack={handleBack} />}
+        {showZoneSelector ? <ZoneSelector /> : <SeatSelector eventID={eventID} seats={seats} ZoneSelected={ZoneSelected} handleBack={handleBack} />}
       </div>
       <div className="w-full md:w-4/12 ">
         <EventInfo data={data}/>

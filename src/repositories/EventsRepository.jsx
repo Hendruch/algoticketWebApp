@@ -105,35 +105,34 @@ class EventsRepository {
       where('seccion_num', '==', seccion_num),
       where('eventoId', '==', referencia),
     ));
-  
+
     const sections = [];
-  
+
     await Promise.all(querySnapshot.docs.map(async (doc) => {
       const sectionData = doc.data();
       const sectionWithReferences = {
         id: doc.id,
         ...sectionData,
-        rango_asientos: [], // Array to hold objects referenced in 'rango_asientos'
+        rango_asientos: [], // Array para contener los objetos referenciados en 'rango_asientos'
       };
-  
+
       const references = sectionData.rango_asientos || [];
-  
-      const referencePromises = references.map((reference) => getDoc(reference));
-      const referenceSnapshots = await Promise.all(referencePromises);
-  
-      referenceSnapshots.forEach((referenceSnapshot) => {
-        if (referenceSnapshot.exists()) {
-          sectionWithReferences.rango_asientos.push(referenceSnapshot.data());
-        }
+
+      const referencePromises = references.map(async (reference) => {
+        const referenceDoc = await getDoc(reference);
+        return { id: reference.id, ...referenceDoc.data() }; // Agregar el ID del documento en cada objeto del array 'rango_asientos'
       });
-  
+      
+      const referenceSnapshots = await Promise.all(referencePromises);
+
+      sectionWithReferences.rango_asientos = referenceSnapshots;
+
       sections.push(sectionWithReferences);
     }));
-  
-    return sections;
-  
 
+    return sections;
   }
+
   async getAllEvents(){
     const eventsCollectionRef = collection(db, 'evento');
     const eventsQuerySnapshot = await getDocs(eventsCollectionRef);
