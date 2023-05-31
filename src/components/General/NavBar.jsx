@@ -44,6 +44,11 @@ function Navbar() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
+  const eliminarItem = (asiento) => {
+    const nuevoCarrito = carrito.filter((item) => item.asiento !== asiento);
+    Setcarrito(nuevoCarrito);
+  };
+
   return (
     <div>
       <nav className="fixed w-full z-50 bg-black">
@@ -219,6 +224,7 @@ function Navbar() {
                       <td className="border px-4 py-2">
                         <button
                           className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                          onClick={() => eliminarItem(carrito?.asiento)}
                         >
                           Eliminar
                         </button>
