@@ -23,7 +23,7 @@ function Concert_cart({card}) {
       
       <div className="hidden md:flex md:w-5/12 ">
         <img
-          src={card?.image || Default }
+          src={card?.banner || Default }
           alt=""
           className="w-full h-50 object-cover rounded-2xl my-8 ml-6"
         />
