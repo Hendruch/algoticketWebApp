@@ -21,6 +21,7 @@ function Navbar() {
   const auth = getAuth();
   const {carritos, crearcarrito} = usePostCarrito();
 
+  console.log("Current user: ",auth.currentUser)
   function cerrarSesion() {
     signOut(auth).then(() => {
       setUser(null)
@@ -104,7 +105,7 @@ function Navbar() {
             id="navbar-default"
           >
             <div>
-              {user ? (
+              {auth.currentUser ? (
                 <div className="col xl:hidden">
                   <li className="pr-5">
                     <p className="block text-sm font-semibold text-white text-right">
@@ -115,6 +116,7 @@ function Navbar() {
                     <Link
                       to="/#"
                       className="block text-sm font-semibold text-white text-right hover:text-blue-500"
+                      onClick={cerrarSesion}
                     >
                       Cerrar sesión
                     </Link>
@@ -170,12 +172,12 @@ function Navbar() {
           </div>
 
           <ul className="hidden font-medium self-center m-auto xl:flex flex-col p-1 xl:p-0 mt-4  xl:flex-row xl:space-x-6 xl:mt-0 xl:border-0">
-            {user ? (
+            {auth.currentUser ? (
               <>
                 <div className="xl:flex items-center mt-2">
                   <li className="py-2 mx-8">
                     <p className="block py-2 pl-3 pr-5 text-sm text-white rounded xl:p-0 text-right">
-                      {user.displayName}
+                      {auth.currentUser.displayName}
                     </p>
                   </li>
                   <li className="py-2">
