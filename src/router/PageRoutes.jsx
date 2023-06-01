@@ -7,6 +7,8 @@ import LoginPage from "../pages/Login";
 import DashboardLayout from "../layouts/DashboardLayout";
 import DashEventos from "../components/Dashboard/Scenes/Evento";
 import DashAsientos from "../components/Dashboard/Scenes/Asiento";
+import DashLugar from "../components/Dashboard/Scenes/Lugar";
+import DashSeccion from "../components/Dashboard/Scenes/Secciones";
 
 function PageRoutes() {
     return (
@@ -21,6 +23,8 @@ function PageRoutes() {
                 <Route path="/registro" element={<LoginPage  propsRegistrando={true} />} />
                 <Route path="/DashEventos" element={<DashEventos />} />
                 <Route path="/DashAsientos" element={<DashAsientos />} />
+                <Route path="/DashLugares" element={<DashLugar />} />
+                <Route path="/DashSecciones" element={<DashSeccion />} />
             </Routes>
         </BrowserRouter>
       </>

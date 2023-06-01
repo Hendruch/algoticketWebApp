@@ -24,7 +24,7 @@ function DashAsientos() {
     const [asientos, setAsientos] = useState([]);
     const [lugares, setLugares] = useState([]);
 
-    const filas = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L']
+    const filas = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
 
     const [fila, setFila] = useState('');
     const [nasiento, setNAsiento] = useState();
