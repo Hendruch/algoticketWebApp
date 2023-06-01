@@ -3,8 +3,10 @@ import Topbar from "../global/Topbar";
 import React, { useState, useEffect, useRef } from "react";
 import { RiAddFill, RiEdit2Fill, RiDeleteBack2Fill } from "react-icons/ri";
 import { FaTrash } from 'react-icons/fa';
-import { db } from "/src/config/firebase-config.jsx";
+import { db, storage } from "/src/config/firebase-config.jsx";
 import { initializeApp } from "firebase/app";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import "firebase/storage";
 
 import {
     collection,
@@ -126,64 +128,65 @@ function DashEventos() {
         }
     }, []);
 
-
+    const [imageFile, setImageFile] = useState(null); // Agrega esta línea para declarar la variable `imageFile`
 
     const registrarEvento = async () => {
-        if (!nombreE || !nArtista || !descripcion || !fecha || !lugarid || !organizador || !restricciones) {
-          alert('Todos los campos son obligatorios');
-          return;
+
+        if (!nombreE || !nArtista || !descripcion || !fecha || !lugarid || !organizador) {
+            alert('Todos los campos son obligatorios');
+            return;
         }
+
         try {
             const servs = [];
 
-            if(bebidas){
-                servs.push("Bebidas");
-            }
+            if (bebidas) { servs.push("Bebidas"); }
+            if (alimentos) { servs.push("Alimentos"); }
+            if (sanitarios) { servs.push("Sanitarios"); }
 
-            if(alimentos){
-                servs.push("Alimentos");
-            }
+            const storage = getStorage();
+            const storageRef = ref(storage, `Banner_Evento/${selectedImage.name}+${Date.now()}`);
+            await uploadBytes(storageRef, selectedImage);
 
-            if(sanitarios){
-                servs.push("Sanitarios");
-            }
+            const imageUrl = await getDownloadURL(storageRef);
 
-          const nuevoEvento = {
-            nombre_evento: nombreE,
-            artista: nArtista,
-            descripcion: descripcion,
-            fecha: new Date(fecha),
-            lugarId: doc(db, "lugar", lugarid),
-            organizador: organizador,
-            restricciones: restricciones,
-            duracion: duracion,
-            limite_acceso: limiteAcceso,
-            limite_edad: limiteEdad,
-            pagina: pagina,
-            pago_apartir: pagoApartir,
-            personas_discapacidad: personasDiscapacidad,
-            servicios: servs,
-          };
-      
-          await addDoc(eventosCollection, nuevoEvento);
-              console.log(nuevoEvento);
-      
-          alert('Evento agregado correctamente');
-          setShowRegistro(false);  
-          getEventos();
-          
+            const nuevoEvento = {
+                banner: imageUrl,
+                nombre_evento: nombreE,
+                artista: nArtista,
+                descripcion: descripcion,
+                fecha: new Date(fecha),
+                lugarId: doc(db, "lugar", lugarid),
+                organizador: organizador,
+                restricciones: restricciones,
+                duracion: duracion,
+                limite_acceso: limiteAcceso,
+                limite_edad: limiteEdad,
+                pagina: pagina,
+                pago_apartir: pagoApartir,
+                personas_discapacidad: personasDiscapacidad,
+                servicios: servs,
+            };
 
+            await addDoc(eventosCollection, nuevoEvento);
+            console.log(nuevoEvento);
+
+            alert('Evento agregado correctamente');
+            setShowRegistro(false);
+            getEventos();
         } catch (error) {
-          console.error(error);
-         
+            console.error(error);
         }
-      };
+    };
+
 
     const getEvento = async (id) => {
         const docRef = doc(db, 'evento', id);
-        try{
+        try {
             const docSnap = await getDoc(docRef);
             const editEvento = docSnap.data();
+            setImageFile(editEvento.banner);
+
             setNombreEdit(editEvento.nombre_evento);
             setNartistaEdit(editEvento.artista);
             setDescripcionEdit(editEvento.descripcion);
@@ -199,68 +202,118 @@ function DashEventos() {
             setPersonasDiscapacidadEdit(editEvento.personas_discapacidad);
             setServiciosEdit(editEvento.servicios);
 
-            for(var i=0; i<serviciosEdit.length; i++){
-                if(serviciosEdit[i] == "Bebidas"){
+            for (var i = 0; i < serviciosEdit.length; i++) {
+                if (serviciosEdit[i] == "Bebidas") {
                     setBebidas(true);
-                }else if(serviciosEdit[i] == "Alimentos"){
+                } else if (serviciosEdit[i] == "Alimentos") {
                     setAlimentos(true);
-                }else if(serviciosEdit[i] == "Sanitarios"){
+                } else if (serviciosEdit[i] == "Sanitarios") {
                     setSanitarios(true);
                 }
             }
-        }catch(e){
+        } catch (e) {
             console.error(e);
         }
     };
 
     const editarEvento = async () => {
         if (!nombreE || !nArtista || !descripcion || !fecha || !lugarid || !organizador || !restricciones) {
-          alert('Todos los campos son obligatorios');
-          return;
+            alert('Todos los campos son obligatorios');
+            return;
         }
-        try{
+        try {
             const servs = [];
 
-            if(bebidas){
+            if (bebidas) {
                 servs.push("Bebidas");
             }
 
-            if(alimentos){
+            if (alimentos) {
                 servs.push("Alimentos");
             }
 
-            if(sanitarios){
+            if (sanitarios) {
                 servs.push("Sanitarios");
             }
+            const storage = getStorage();
+            const storageRef = ref(storage, `Banner_Evento/${selectedImage.name}+${Date.now()}`);
+            await uploadBytes(storageRef, selectedImage);
 
-          const EventEdit = {
-            nombre_evento: nombreE,
-            artista: nArtista,
-            descripcion: descripcion,
-            fecha: new Date(fecha),
-            lugarId: doc(db, "lugar", lugarid),
-            organizador: organizador,
-            restricciones: restricciones,
-            duracion: duracion,
-            limite_acceso: limiteAcceso,
-            limite_edad: limiteEdad,
-            pagina: pagina,
-            pago_apartir: pagoApartir,
-            personas_discapacidad: personasDiscapacidad,
-            servicios: servs,
-          };
+            const imageUrl = await getDownloadURL(storageRef);
+
+            const EventEdit = {
+                banner: imageUrl,
+                nombre_evento: nombreE,
+                artista: nArtista,
+                descripcion: descripcion,
+                fecha: new Date(fecha),
+                lugarId: doc(db, "lugar", lugarid),
+                organizador: organizador,
+                restricciones: restricciones,
+                duracion: duracion,
+                limite_acceso: limiteAcceso,
+                limite_edad: limiteEdad,
+                pagina: pagina,
+                pago_apartir: pagoApartir,
+                personas_discapacidad: personasDiscapacidad,
+                servicios: servs,
+            };
 
 
-          await updateDoc(doc(db, "evento", eventoID), EventEdit);
-          alert('Evento Actualizado correctamente');
-          setShowEditar(false);  
-          getEventos();
+            await updateDoc(doc(db, "evento", eventoID), EventEdit);
+            alert('Evento Actualizado correctamente');
+            setShowEditar(false);
+            getEventos();
 
-        }catch{
+        } catch {
 
         };
     };
-      
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const image = new Image();
+                image.src = e.target.result;
+
+                image.onload = function () {
+                    const width = image.width;
+                    const height = image.height;
+
+                    if (width <= 1080 && height <= 1080) {
+                        setSelectedImage(e.target.result);
+                    } else {
+                        setSelectedImage(null);
+                        alert('Debes seleccionar una imagen de 600x500px.');
+                    }
+                };
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            setSelectedImage(null);
+            alert('Solamente archivos (PNG o JPG).');
+        }
+    };
+
+
+    const getImageStyle = () => {
+        if (selectedImage) {
+            return {
+                backgroundImage: `url(${selectedImage})`,
+                backgroundSize: '450px 250px',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+            };
+        }
+
+        return {};
+    };
 
     return (
         <>
@@ -291,41 +344,54 @@ function DashEventos() {
                                         <h2 className="text-xl font-bold mb-4">Registrar evento</h2>
                                         <form className="mb-2" onSubmit={(e) => e.preventDefault()}>
                                             <div className="grid grid-cols-2 gap-4">
-                                                <div>
-                                                    <label htmlFor="nombre" className="block text-sm font-medium text-gray-700 mb-2">
-                                                        Nombre del evento
+
+
+                                                {/* AGREGA IMAGEN */}
+                                                <div className="flex items-center justify-center w-full">
+                                                    <label htmlFor="dropzone-file" style={getImageStyle()} className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                                        <input id="dropzone-file" type="file" className="hidden" accept="image/png, image/jpeg" onChange={handleImageUpload} />
                                                     </label>
-                                                    <input
-                                                        onChange={(e) => setNombreE(e.target.value)}
-                                                        type="text"
-                                                        id="nombre"
-                                                        name="nombre"
-                                                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
-                                                    />
                                                 </div>
-                                                <div>
-                                                    <label htmlFor="fecha" className="block text-sm font-medium text-gray-700 mb-2">
-                                                        Fecha
-                                                    </label>
-                                                    <input
-                                                        onChange={(e) => setFecha(e.target.value)}
-                                                        type="date"
-                                                        id="fecha"
-                                                        name="fecha"
-                                                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
-                                                    />
-                                                </div>
-                                                <div>
-                                                    <label htmlFor="artista" className="block text-sm font-medium text-gray-700 mb-2">
-                                                        Artista
-                                                    </label>
-                                                    <input
-                                                        onChange={(e) => setNartista(e.target.value)}
-                                                        type="text"
-                                                        id="artista"
-                                                        name="artista"
-                                                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
-                                                    />
+
+                                                <div className="grid gap-3">
+
+
+                                                    <div>
+                                                        <label htmlFor="nombre" className="block text-sm font-medium text-gray-700 mb-2">
+                                                            Nombre del evento
+                                                        </label>
+                                                        <input
+                                                            onChange={(e) => setNombreE(e.target.value)}
+                                                            type="text"
+                                                            id="nombre"
+                                                            name="nombre"
+                                                            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor="fecha" className="block text-sm font-medium text-gray-700 mb-2">
+                                                            Fecha
+                                                        </label>
+                                                        <input
+                                                            onChange={(e) => setFecha(e.target.value)}
+                                                            type="date"
+                                                            id="fecha"
+                                                            name="fecha"
+                                                            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor="artista" className="block text-sm font-medium text-gray-700 mb-2">
+                                                            Artista
+                                                        </label>
+                                                        <input
+                                                            onChange={(e) => setNartista(e.target.value)}
+                                                            type="text"
+                                                            id="artista"
+                                                            name="artista"
+                                                            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                                                        />
+                                                    </div>
                                                 </div>
                                                 <div>
                                                     <label htmlFor="organizador" className="block text-sm font-medium text-gray-700 mb-2">
@@ -412,6 +478,29 @@ function DashEventos() {
                                                     />
                                                 </div>
                                                 <div>
+                                                    <label htmlFor="lugar" className="block text-sm font-medium text-gray-700 mb-2">
+                                                        Lugar
+                                                    </label>
+                                                    <select
+                                                        name="lugar"
+                                                        id="lugarR"
+                                                        onChange={(e) => setlugar(e.target.value)}
+                                                        defaultValue=""
+                                                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                                                    >
+                                                        <option value="" disabled>
+                                                            Seleccione un lugar
+                                                        </option>
+                                                        {lugares.map((inmueble) => (
+                                                            <option key={inmueble.refencia} value={inmueble.refencia}>
+                                                                {inmueble.inmueble}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className="grid grid-cols-2 gap-4 mt-4">
+                                                <div>
                                                     <label htmlFor="descripcion" className="block text-sm font-medium text-gray-700 mb-2">
                                                         Descripción
                                                     </label>
@@ -436,39 +525,21 @@ function DashEventos() {
                                                     ></textarea>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <label htmlFor="lugar" className="block text-sm font-medium text-gray-700 mb-2">
-                                                    Lugar
-                                                </label>
-                                                <select
-                                                    name="lugar"
-                                                    id="lugarR"
-                                                    onChange={(e) => setlugar(e.target.value)}
-                                                    defaultValue=""
-                                                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
-                                                >
-                                                    <option value="" disabled>
-                                                        Seleccione un lugar
-                                                    </option>
-                                                    {lugares.map((inmueble) => (
-                                                        <option key={inmueble.refencia} value={inmueble.refencia}>
-                                                            {inmueble.inmueble}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label htmlFor="servicios" className="block text-sm font-medium text-gray-700 mb-2">
+
+                                            <div className="mb-4 mt-4 ">
+                                                <label htmlFor="servicios" className="block text-sm  font-medium text-gray-700 mb-2">
                                                     Servicios
                                                 </label>
-                                                <input type="checkbox" name="serv1" id="serv1" value="Bebidas" onChange={(e) => setBebidas(e.target.checked)} />
-                                                <label for="serv1"> Bebidas </label>
-                                                <input type="checkbox" name="serv2" id="serv2" value="Alimentos" onChange={(e) => setAlimentos(e.target.checked)}/>
-                                                <label for="serv2"> Alimentos </label>
-                                                <input type="checkbox" name="serv3" id="serv3" value="Sanitarios" onChange={(e) => setSanitarios(e.target.checked)}/>
-                                                <label for="serv3"> Sanitarios </label>
+                                                <div className="space-x-4 p-4">
+
+                                                    <input type="checkbox" name="serv1" id="serv1" value="Bebidas" onChange={(e) => setBebidas(e.target.checked)} />
+                                                    <label for="serv1"> Bebidas </label>
+                                                    <input type="checkbox" name="serv2" id="serv2" value="Alimentos" onChange={(e) => setAlimentos(e.target.checked)} />
+                                                    <label for="serv2"> Alimentos </label>
+                                                    <input type="checkbox" name="serv3" id="serv3" value="Sanitarios" onChange={(e) => setSanitarios(e.target.checked)} />
+                                                    <label for="serv3"> Sanitarios </label>
+                                                </div>
                                             </div>
-                                            <br />
                                             <div className="flex flex-col sm:flex-row items-center justify-between gap-8">
                                                 <button
                                                     onClick={() => setShowRegistro(false)}
@@ -495,45 +566,61 @@ function DashEventos() {
                                 <div className="bg-white p-10 w-1/2 rounded-lg">
                                     <h2 className="text-xl font-bold mb-4">Editar evento</h2>
                                     <form className="mb-2" onSubmit={(e) => e.preventDefault()}>
+
+                                        {/* AGREGA IMAGEN */}
                                         <div className="grid grid-cols-2 gap-4">
-                                            <div>
-                                                <label htmlFor="nombre" className="block text-sm font-medium text-gray-700 mb-2">
-                                                    Nombre del evento
-                                                </label>
-                                                <input
-                                                    onChange={(e) => setNombreE(e.target.value)}
-                                                    type="text"
-                                                    id="nombre"
-                                                    name="nombre"
-                                                    defaultValue={nombreEdit}
-                                                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
-                                                />
-                                            </div>
-                                            <div>
-                                                <label htmlFor="fecha" className="block text-sm font-medium text-gray-700 mb-2">
-                                                    Fecha
-                                                </label>
-                                                <input
-                                                    onChange={(e) => setFecha(e.target.value)}
-                                                    type="date"
-                                                    id="fecha"
-                                                    name="fecha"
-                                                    defaultValue={fechaEdit}
-                                                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
-                                                />
-                                            </div>
-                                            <div>
-                                                <label htmlFor="artista" className="block text-sm font-medium text-gray-700 mb-2">
-                                                    Artista
-                                                </label>
-                                                <input
-                                                    onChange={(e) => setNartista(e.target.value)}
-                                                    type="text"
-                                                    id="artista"
-                                                    name="artista"
-                                                    defaultValue={nArtistaEdit}
-                                                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
-                                                />
+
+                                        <div className="flex items-center justify-center w-full">
+  <label htmlFor="dropzone-file" style={getImageStyle()} className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+    {imageFile ? (
+      <img src={imageFile} alt="Preview" className="w-full h-full object-cover" />
+    ) : (
+      <span>Drop an image or click to select</span>
+    )}
+    <input id="dropzone-file" type="file" className="hidden" accept="image/png, image/jpeg" onChange={handleImageUpload} />
+  </label>
+</div>
+                                            <div className="grid gap-3">
+
+                                                <div>
+                                                    <label htmlFor="nombre" className="block text-sm font-medium text-gray-700 mb-2">
+                                                        Nombre del evento
+                                                    </label>
+                                                    <input
+                                                        onChange={(e) => setNombreE(e.target.value)}
+                                                        type="text"
+                                                        id="nombre"
+                                                        name="nombre"
+                                                        defaultValue={nombreEdit}
+                                                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label htmlFor="fecha" className="block text-sm font-medium text-gray-700 mb-2">
+                                                        Fecha
+                                                    </label>
+                                                    <input
+                                                        onChange={(e) => setFecha(e.target.value)}
+                                                        type="date"
+                                                        id="fecha"
+                                                        name="fecha"
+                                                        defaultValue={fechaEdit}
+                                                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label htmlFor="artista" className="block text-sm font-medium text-gray-700 mb-2">
+                                                        Artista
+                                                    </label>
+                                                    <input
+                                                        onChange={(e) => setNartista(e.target.value)}
+                                                        type="text"
+                                                        id="artista"
+                                                        name="artista"
+                                                        defaultValue={nArtistaEdit}
+                                                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                                                    />
+                                                </div>
                                             </div>
                                             <div>
                                                 <label htmlFor="organizador" className="block text-sm font-medium text-gray-700 mb-2">
@@ -627,6 +714,27 @@ function DashEventos() {
                                                 />
                                             </div>
                                             <div>
+                                                <label htmlFor="lugar" className="block text-sm font-medium text-gray-700 mb-2">
+                                                    Lugar
+                                                </label>
+                                                <select
+                                                    name="lugar"
+                                                    id="lugarR"
+                                                    onChange={(e) => setlugar(e.target.value)}
+                                                    defaultValue=""
+                                                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                                                >
+                                                    <option value="" disabled>
+                                                        Seleccione un lugar
+                                                    </option>
+                                                    {lugares.map((inmueble) => (
+                                                        <option key={inmueble.refencia} value={inmueble.refencia}>
+                                                            {inmueble.inmueble}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                            <div>
                                                 <label htmlFor="descripcion" className="block text-sm font-medium text-gray-700 mb-2">
                                                     Descripción
                                                 </label>
@@ -653,37 +761,20 @@ function DashEventos() {
                                                 ></textarea>
                                             </div>
                                         </div>
-                                        <div>
-                                            <label htmlFor="lugar" className="block text-sm font-medium text-gray-700 mb-2">
-                                                Lugar
-                                            </label>
-                                            <select
-                                                name="lugar"
-                                                id="lugarR"
-                                                onChange={(e) => setlugar(e.target.value)}
-                                                defaultValue=""
-                                                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
-                                            >
-                                                <option value="" disabled>
-                                                    Seleccione un lugar
-                                                </option>
-                                                {lugares.map((inmueble) => (
-                                                    <option key={inmueble.refencia} value={inmueble.refencia}>
-                                                        {inmueble.inmueble}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
+
                                         <div>
                                             <label htmlFor="servicios" className="block text-sm font-medium text-gray-700 mb-2">
                                                 Servicios
                                             </label>
-                                            <input type="checkbox" name="serv1" id="serv1" value="Bebidas" onChange={(e) => setBebidas(e.target.checked)} checked={bebidas} />
-                                            <label for="serv1"> Bebidas </label>
-                                            <input type="checkbox" name="serv2" id="serv2" value="Alimentos" onChange={(e) => setAlimentos(e.target.checked)} checked={alimentos} />
-                                            <label for="serv2"> Alimentos </label>
-                                            <input type="checkbox" name="serv3" id="serv3" value="Sanitarios" onChange={(e) => setSanitarios(e.target.checked)} checked={sanitarios} />
-                                            <label for="serv3"> Sanitarios </label>
+                                            <div className="space-x-4 p-4">
+
+                                                <input type="checkbox" name="serv1" id="serv1" value="Bebidas" onChange={(e) => setBebidas(e.target.checked)} checked={bebidas} />
+                                                <label for="serv1"> Bebidas </label>
+                                                <input type="checkbox" name="serv2" id="serv2" value="Alimentos" onChange={(e) => setAlimentos(e.target.checked)} checked={alimentos} />
+                                                <label for="serv2"> Alimentos </label>
+                                                <input type="checkbox" name="serv3" id="serv3" value="Sanitarios" onChange={(e) => setSanitarios(e.target.checked)} checked={sanitarios} />
+                                                <label for="serv3"> Sanitarios </label>
+                                            </div>
                                         </div>
                                         <br />
                                         <div className="flex flex-col sm:flex-row items-center justify-between gap-8">
